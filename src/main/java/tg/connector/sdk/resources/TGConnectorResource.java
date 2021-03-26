@@ -36,28 +36,28 @@ import tg.connector.sdk.api.service.TransactionService;
 @RestController
 public class TGConnectorResource {
 
-	@Autowired
+	@Autowired(required = false)
 	AccountService accountService;
 
-	@Autowired
+	@Autowired(required = false)
 	BalanceService balanceService;
 
-	@Autowired
+	@Autowired(required = false)
 	TransactionService transactionService;
 
-	@Autowired
+	@Autowired(required = false)
 	BeneficiaryService beneficiaryService;
 
-	@Autowired
+	@Autowired(required = false)
 	DirectDebitService directDebitService;
 
-	@Autowired
+	@Autowired(required = false)
 	OfferService offerService;
 
-	@Autowired
+	@Autowired(required = false)
 	ScheduledPaymentService scheduledPaymentService;
 
-	@Autowired
+	@Autowired(required = false)
 	StandingOrderService standingOrderService;
 
 	@GetMapping("/accounts")
