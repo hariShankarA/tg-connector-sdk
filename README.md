@@ -30,15 +30,21 @@ Command to build from project home directory
 
 # Usage
 
-Build the jar locally.
-In your connector build.gradle file include the SDK jar by adding the below dependency. (Until we push our SDK into a repository)
-
+Include jitpack in your repository
 ```
-dependencies {	
-	implementation files('/yourSDKJarPath/tg-connector-sdk-1.0.0-SNAPSHOT.jar')
-}
+allprojects {
+		repositories {
+			...
+			maven { url 'https://jitpack.io' }
+		}
+	}
 ```
-
+Add your dependency as
+```
+	dependencies {
+	        implementation 'com.github.harishankara:tg-connector-sdk:v1.0.1'
+	}
+```
 Making your spring boot application (bobf-connector-****) to include required componets from the SDK jar 
 
 ```
