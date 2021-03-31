@@ -82,7 +82,7 @@ public class TGConnectorConfiguration {
 	}
 	
 	@Bean
-	public WebMvcConfigurer webMvcConfigurer(TGLoggingInterceptor tgLoggingInterceptor,TGAuthInterceptor tgAuthInterceptor) {
+	public WebMvcConfigurer webMvcConfigurer(TGLoggingInterceptor tgLoggingInterceptor,TGAuthInterceptor tgAuthInterceptor, TGAsyncHandler tgAsyncHandler) {
 
 		return new WebMvcConfigurer() {
 
@@ -90,6 +90,7 @@ public class TGConnectorConfiguration {
 			public void addInterceptors(InterceptorRegistry registry) {
 				registry.addInterceptor(tgLoggingInterceptor);
 				registry.addInterceptor(tgAuthInterceptor);
+				registry.addInterceptor(tgAsyncHandler);
 			}
 		};
 

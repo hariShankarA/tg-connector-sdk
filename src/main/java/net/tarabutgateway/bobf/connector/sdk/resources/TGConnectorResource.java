@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestAttribute;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.context.request.async.DeferredResult;
 
 import net.tarabutgateway.bobf.connector.sdk.api.dto.accounts.AccountResponse;
 import net.tarabutgateway.bobf.connector.sdk.api.dto.accounts.AccountsResponse;
@@ -61,37 +62,45 @@ public class TGConnectorResource {
 	StandingOrderService standingOrderService;
 
 	@GetMapping("/accounts")
-	public AccountsResponse getAccounts(
+	public DeferredResult<AccountsResponse> getAccounts(
 			@RequestAttribute(name = "X-TG-PsuIdentifier", required = false) PsuIdentifiers psuIdentifier,
 			@RequestParam(required = false, name = "accountIds", defaultValue = "") List<String> accountIds) {
-		return accountService.findAccounts(psuIdentifier, accountIds);
+		DeferredResult<AccountsResponse> defResult = new DeferredResult<>(3000L);
+		accountService.findAccounts(defResult, psuIdentifier, accountIds);
+		return defResult;
 	}
 
 	@GetMapping("/accounts/{accountId}")
-	public AccountResponse getAccount(
+	public DeferredResult<AccountResponse> getAccount(
 			@RequestAttribute(name = "X-TG-PsuIdentifier", required = false) PsuIdentifiers psuIdentifier,
 			@PathVariable(value = "accountId", required = true) String accountId) {
-		return accountService.findByAccountId(psuIdentifier, accountId);
+		DeferredResult<AccountResponse> defResult = new DeferredResult<>(3000L);
+		accountService.findByAccountId(defResult, psuIdentifier, accountId);
+		return defResult;
 	}
 
 	@GetMapping("/balances")
-	public BalancesResponse getBalances(
+	public DeferredResult<BalancesResponse> getBalances(
 			@RequestAttribute(name = "X-TG-PsuIdentifier", required = false) PsuIdentifiers psuIdentifier,
 			@RequestParam(required = false, name = "accountIds", defaultValue = "") List<String> accountIds,
 			@RequestParam(required = false, name = "balanceType", defaultValue = "") OBBalanceTypeCode balanceType) {
-		return balanceService.findBalancesByAccountIds(psuIdentifier, accountIds, balanceType);
+		DeferredResult<BalancesResponse> defResult = new DeferredResult<>(3000L);
+		balanceService.findBalancesByAccountIds(defResult, psuIdentifier, accountIds, balanceType);
+		return defResult;
 	}
 
 	@GetMapping("/accounts/{accountId}/balances")
-	public BalancesResponse getBalance(
+	public DeferredResult<BalancesResponse> getBalance(
 			@RequestAttribute(name = "X-TG-PsuIdentifier", required = false) PsuIdentifiers psuIdentifier,
 			@PathVariable(value = "accountId", required = true) String accountId,
 			@RequestParam(required = false, name = "balanceType", defaultValue = "") OBBalanceTypeCode balanceType) {
-		return balanceService.findBalancesByAccountId(psuIdentifier, accountId, balanceType);
+		DeferredResult<BalancesResponse> defResult = new DeferredResult<>(3000L);
+		balanceService.findBalancesByAccountId(defResult, psuIdentifier, accountId, balanceType);
+		return defResult;
 	}
 
 	@GetMapping("/transactions")
-	public TransactionsResponse getTransactions(
+	public DeferredResult<TransactionsResponse> getTransactions(
 			@RequestAttribute(name = "X-TG-PsuIdentifier", required = false) PsuIdentifiers psuIdentifier,
 			@RequestParam(required = false, name = "accountIds", defaultValue = "") List<String> accountIds,
 			@RequestParam(required = false, name = "page", defaultValue = "1") Integer page,
@@ -99,12 +108,14 @@ public class TGConnectorResource {
 			@RequestParam(required = false, name = "creditDebitIndicator", defaultValue = "") OBCreditDebitCode creditDebitIndicator,
 			@RequestParam(required = false, name = "fromBookingDateTime") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) Date fromBookingDateTime,
 			@RequestParam(required = false, name = "toBookingDateTime") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) Date toBookingDateTime) {
-		return transactionService.findTransactions(psuIdentifier, accountIds, page, status, creditDebitIndicator,
+		DeferredResult<TransactionsResponse> defResult = new DeferredResult<>(3000L);
+		transactionService.findTransactions(defResult, psuIdentifier, accountIds, page, status, creditDebitIndicator,
 				fromBookingDateTime, toBookingDateTime);
+		return defResult;
 	}
 
 	@GetMapping("/accounts/{accountId}/transactions")
-	public TransactionsResponse getTransaction(
+	public DeferredResult<TransactionsResponse> getTransaction(
 			@RequestAttribute(name = "X-TG-PsuIdentifier", required = false) PsuIdentifiers psuIdentifier,
 			@PathVariable(value = "accountId", required = true) String accountId,
 			@RequestParam(required = false, name = "page", defaultValue = "1") Integer page,
@@ -112,78 +123,100 @@ public class TGConnectorResource {
 			@RequestParam(required = false, name = "creditDebitIndicator", defaultValue = "") OBCreditDebitCode creditDebitIndicator,
 			@RequestParam(required = false, name = "fromBookingDateTime") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) Date fromBookingDateTime,
 			@RequestParam(required = false, name = "toBookingDateTime") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) Date toBookingDateTime) {
-		return transactionService.findTransactionsByAccountId(psuIdentifier, accountId, page, status,
+		DeferredResult<TransactionsResponse> defResult = new DeferredResult<>(3000L);
+		transactionService.findTransactionsByAccountId(defResult, psuIdentifier, accountId, page, status,
 				creditDebitIndicator, fromBookingDateTime, toBookingDateTime);
+		return defResult;
 	}
 
 	@GetMapping("/beneficiaries")
-	public BeneficiariesResponse getBeneficiaries(
+	public DeferredResult<BeneficiariesResponse> getBeneficiaries(
 			@RequestAttribute(name = "X-TG-PsuIdentifier", required = false) PsuIdentifiers psuIdentifier,
 			@RequestParam(required = false, name = "accountIds", defaultValue = "") List<String> accountIds) {
-		return beneficiaryService.findBeneficiaries(psuIdentifier, accountIds);
+		DeferredResult<BeneficiariesResponse> defResult = new DeferredResult<>(3000L);
+		beneficiaryService.findBeneficiaries(defResult, psuIdentifier, accountIds);
+		return defResult;
 	}
 
 	@GetMapping("/accounts/{accountId}/beneficiaries")
-	public BeneficiariesResponse getBeneficiary(
+	public DeferredResult<BeneficiariesResponse> getBeneficiary(
 			@RequestAttribute(name = "X-TG-PsuIdentifier", required = true) PsuIdentifiers psuIdentifier,
 			@PathVariable(value = "accountId", required = true) String accountId) {
-		return beneficiaryService.findBeneficiariesAccountId(psuIdentifier, accountId);
+		DeferredResult<BeneficiariesResponse> defResult = new DeferredResult<>(3000L);
+		beneficiaryService.findBeneficiariesAccountId(defResult, psuIdentifier, accountId);
+		return defResult;
 	}
 
 	@GetMapping("/direct-debits")
-	public DirectDebitsResponse getDirectDebits(
+	public DeferredResult<DirectDebitsResponse> getDirectDebits(
 			@RequestAttribute(name = "X-TG-PsuIdentifier", required = false) PsuIdentifiers psuIdentifierObj,
 			@RequestParam(required = false, name = "accountIds", defaultValue = "") List<String> accountIds) {
-		return directDebitService.findDirectDebits(psuIdentifierObj, accountIds);
+		DeferredResult<DirectDebitsResponse> defResult = new DeferredResult<>(3000L);
+		directDebitService.findDirectDebits(defResult, psuIdentifierObj, accountIds);
+		return defResult;
 	}
 
 	@GetMapping("/accounts/{accountId}/direct-debits")
-	public DirectDebitsResponse getDirectDebit(
+	public DeferredResult<DirectDebitsResponse> getDirectDebit(
 			@RequestAttribute(name = "X-TG-PsuIdentifier", required = false) PsuIdentifiers psuIdentifierObj,
 			@PathVariable(value = "accountId", required = true) String accountId) {
-		return directDebitService.findDirectDebitByAccountId(psuIdentifierObj, accountId);
+		DeferredResult<DirectDebitsResponse> defResult = new DeferredResult<>(3000L);
+		directDebitService.findDirectDebitByAccountId(defResult, psuIdentifierObj, accountId);
+		return defResult;
 	}
 
 	@GetMapping("/offers")
-	public OffersResponse getOffers(
+	public DeferredResult<OffersResponse> getOffers(
 			@RequestAttribute(name = "X-TG-PsuIdentifier", required = false) PsuIdentifiers psuIdentifierObj,
 			@RequestParam(required = false, name = "accountIds", defaultValue = "") List<String> accountIds) {
-		return offerService.findOffers(psuIdentifierObj, accountIds);
+		DeferredResult<OffersResponse> defResult = new DeferredResult<>(3000L);
+		offerService.findOffers(defResult, psuIdentifierObj, accountIds);
+		return defResult;
 	}
 
 	@GetMapping("/accounts/{accountId}/offers")
-	public OffersResponse getOffer(
+	public DeferredResult<OffersResponse> getOffer(
 			@RequestAttribute(name = "X-TG-PsuIdentifier", required = true) PsuIdentifiers psuIdentifierObj,
 			@PathVariable(value = "accountId", required = true) String accountId) {
-		return offerService.findOffersByAccountId(psuIdentifierObj, accountId);
+		DeferredResult<OffersResponse> defResult = new DeferredResult<>(3000L);
+		offerService.findOffersByAccountId(defResult, psuIdentifierObj, accountId);
+		return defResult;
 	}
 
 	@GetMapping("/scheduled-payments")
-	public ScheduledPaymentsResponse getFuturDatedPayment(
+	public DeferredResult<ScheduledPaymentsResponse> getFuturDatedPayment(
 			@RequestAttribute(name = "X-TG-PsuIdentifier", required = false) PsuIdentifiers psuIdentifierObj,
 			@RequestParam(required = false, name = "accountIds", defaultValue = "") List<String> accountIds) {
-		return scheduledPaymentService.findScheduledPayments(psuIdentifierObj, accountIds);
+		DeferredResult<ScheduledPaymentsResponse> defResult = new DeferredResult<>(3000L);
+		scheduledPaymentService.findScheduledPayments(defResult, psuIdentifierObj, accountIds);
+		return defResult;
 	}
 
 	@GetMapping("/accounts/{accountId}/scheduled-payments")
-	public ScheduledPaymentsResponse getFuturDatedPayments(
+	public DeferredResult<ScheduledPaymentsResponse> getFuturDatedPayments(
 			@RequestAttribute(name = "X-TG-PsuIdentifier", required = false) PsuIdentifiers psuIdentifierObj,
 			@PathVariable(value = "accountId", required = true) String accountId) {
-		return scheduledPaymentService.findScheduledPaymentByAccountId(psuIdentifierObj, accountId);
+		DeferredResult<ScheduledPaymentsResponse> defResult = new DeferredResult<>(3000L);
+		scheduledPaymentService.findScheduledPaymentByAccountId(defResult, psuIdentifierObj, accountId);
+		return defResult;
 	}
 
 	@GetMapping("/standing-orders")
-	public StandingOrdersResponse getStandingOrders(
+	public DeferredResult<StandingOrdersResponse> getStandingOrders(
 			@RequestAttribute(name = "X-TG-PsuIdentifier", required = false) PsuIdentifiers psuIdentifierObj,
 			@RequestParam(required = false, name = "accountIds", defaultValue = "") List<String> accountIds) {
-		return standingOrderService.findStandingOrders(psuIdentifierObj, accountIds);
+		DeferredResult<StandingOrdersResponse> defResult = new DeferredResult<>(3000L);
+		standingOrderService.findStandingOrders(defResult, psuIdentifierObj, accountIds);
+		return defResult;
 	}
 
 	@GetMapping("/accounts/{accountId}/standing-orders")
-	public StandingOrdersResponse getStandingOrder(
+	public DeferredResult<StandingOrdersResponse> getStandingOrder(
 			@RequestAttribute(name = "X-TG-PsuIdentifier", required = false) PsuIdentifiers psuIdentifierObj,
 			@PathVariable(value = "accountId", required = true) String accountId) {
-		return standingOrderService.findStandingOrderByAccountId(psuIdentifierObj, accountId);
+		DeferredResult<StandingOrdersResponse> defResult = new DeferredResult<>(3000L);
+		standingOrderService.findStandingOrderByAccountId(defResult, psuIdentifierObj, accountId);
+		return defResult;
 	}
 
 }
