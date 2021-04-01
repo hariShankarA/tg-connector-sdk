@@ -5,7 +5,6 @@ import java.time.Instant;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.slf4j.MDC;
-import org.springframework.beans.factory.annotation.Value;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
@@ -22,10 +21,6 @@ public class EventLogger {
 	private static final Logger LOGGER = LogManager.getLogger(EventLogger.class);
 	private static final Logger EVENT_LOGGER = LogManager.getLogger("event");
 
-	@Value("${service.bank.id}")
-	static
-	String bankId;
-	
 	EventLogger() {
 
 	}
@@ -36,10 +31,10 @@ public class EventLogger {
 			.setSerializationInclusion(Include.NON_NULL)
 			.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
 
-	public static void log(EventType event, String clazz, String refKey, String refValue) {
+	public static void log(EventType event, String clazz, String refKey, String refValue, String bankId) {
 
 		try {
-			String eventJson = mapper.writeValueAsString(new Event(event, clazz, refKey, refValue));
+			String eventJson = mapper.writeValueAsString(new Event(event, clazz, refKey, refValue, bankId));
 			EVENT_LOGGER.info(eventJson);
 		} catch (JsonProcessingException e) {
 			LOGGER.error("Failed to log event due to problem serializing to json", e);
@@ -58,12 +53,12 @@ public class EventLogger {
 		private final String refValue;
 		private final Instant createdAt = Instant.now();
 
-		public Event(EventType eventType, String caller, String refKey, String refValue) {
+		public Event(EventType eventType, String caller, String refKey, String refValue, String bankId) {
 
 			this.caller = caller;
 			this.traceId = MDC.get("traceId");
 			this.spanId = MDC.get("spanId");
-			this.serviceName = "bobf-connector-"+bankId;
+			this.serviceName = "bobf-connector-" + bankId;
 			this.eventType = eventType;
 			this.refKey = refKey;
 			this.refValue = refValue;

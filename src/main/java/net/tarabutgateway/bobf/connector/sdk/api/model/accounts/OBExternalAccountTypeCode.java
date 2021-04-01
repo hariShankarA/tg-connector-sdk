@@ -18,7 +18,7 @@ public enum OBExternalAccountTypeCode {
 		return value;
 	}
 
-	public static OBExternalAccountTypeCode fromValue(String text) {
+	public static OBExternalAccountTypeCode fromName(String text) {
 		for (OBExternalAccountTypeCode b : OBExternalAccountTypeCode.values()) {
 			if (String.valueOf(b.name()).equals(text)) {
 				return b;

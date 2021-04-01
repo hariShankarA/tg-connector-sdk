@@ -3,6 +3,7 @@ package net.tarabutgateway.bobf.connector.sdk;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Component;
@@ -14,6 +15,9 @@ import net.tarabutgateway.bobf.connector.sdk.logging.EventType;
 @Component
 public class TGLoggingInterceptor extends HandlerInterceptorAdapter {
 
+	@Value("${service.bank.id}")
+	String bankId;
+
 	@Override
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
 			throws Exception {
@@ -23,7 +27,7 @@ public class TGLoggingInterceptor extends HandlerInterceptorAdapter {
 		}
 
 		EventLogger.log(EventType.HTTP_REQUEST, "TGLoggingInterceptor", "URI",
-				request.getMethod() + " [" + request.getRequestURI() + "]");
+				request.getMethod() + " [" + request.getRequestURI() + "]", bankId);
 		return true;
 	}
 
@@ -40,7 +44,7 @@ public class TGLoggingInterceptor extends HandlerInterceptorAdapter {
 		if (ex != null)
 			responseStatus = responseStatus + "/" + ex.getMessage();
 
-		EventLogger.log(EventType.HTTP_RESPONSE, "TGLoggingInterceptor", "STATUS", responseStatus);
+		EventLogger.log(EventType.HTTP_RESPONSE, "TGLoggingInterceptor", "STATUS", responseStatus, bankId);
 	}
 
 	private boolean ignoreLogging(HttpServletRequest request) {
