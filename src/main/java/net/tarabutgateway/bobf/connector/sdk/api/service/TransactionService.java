@@ -3,6 +3,7 @@ package net.tarabutgateway.bobf.connector.sdk.api.service;
 import java.util.Date;
 import java.util.List;
 
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 import org.springframework.web.context.request.async.DeferredResult;
 
@@ -14,11 +15,13 @@ import net.tarabutgateway.bobf.connector.sdk.api.model.transactions.OBTransactio
 @Service
 public interface TransactionService {
 
-	TransactionsResponse findTransactions(DeferredResult<TransactionsResponse> defResult, PsuIdentifiers psuIdentifier, List<String> accountIds, Integer page,
+	@Async
+	void findTransactions(DeferredResult<TransactionsResponse> defResult, PsuIdentifiers psuIdentifier, List<String> accountIds, Integer page,
 			OBTransactionStatus status, OBCreditDebitCode creditDebitIndicator, Date fromBookingDateTime,
 			Date toBookingDateTime);
 
-	TransactionsResponse findTransactionsByAccountId(DeferredResult<TransactionsResponse> defResult, PsuIdentifiers psuIdentifier, String accountId, Integer page,
+	@Async
+	void findTransactionsByAccountId(DeferredResult<TransactionsResponse> defResult, PsuIdentifiers psuIdentifier, String accountId, Integer page,
 			OBTransactionStatus status, OBCreditDebitCode creditDebitIndicator, Date fromBookingDateTime,
 			Date toBookingDateTime);
 }

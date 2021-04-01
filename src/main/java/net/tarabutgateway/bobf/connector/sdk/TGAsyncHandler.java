@@ -3,10 +3,12 @@ package net.tarabutgateway.bobf.connector.sdk;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.springframework.stereotype.Component;
 import org.springframework.web.context.request.async.WebAsyncManager;
 import org.springframework.web.context.request.async.WebAsyncUtils;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
+@Component
 public class TGAsyncHandler extends HandlerInterceptorAdapter {
 	private static final Object DEFERRED_INTERCEPTOR_KEY = new Object();
 
