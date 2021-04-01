@@ -41,26 +41,26 @@ public class CustomExceptionHandler {
 	public ErrorResponse handleInvalidRequests(Exception ex) {
 		LOGGER.error("Invalid Request", ex);
 		String message = ex.getMessage() != null ? ex.getMessage() : "NULL";
-		return new ErrorResponse(HttpStatus.BAD_GATEWAY, message, tracer.currentSpan().context().traceIdString());
+		return new ErrorResponse(HttpStatus.BAD_REQUEST, message, tracer.currentSpan().context().traceIdString());
 	}
 
-	@ResponseStatus(HttpStatus.BAD_REQUEST)
+	@ResponseStatus(HttpStatus.BAD_GATEWAY)
 	@ResponseBody
-	@ExceptionHandler(HystrixRuntimeException.class)
-	public ResponseEntity<ErrorResponse> handleHystrixRuntimeException(HystrixRuntimeException ex) {
-
-		LOGGER.error("HystrixRuntimeException", ex);
+	@ExceptionHandler({ HystrixRuntimeException.class })
+	public ResponseEntity<ErrorResponse> handleRuntimeException(HystrixRuntimeException ex) {
 
 		if (ex.getCause() instanceof feign.FeignException) {
+
+			LOGGER.error("HystrixRuntimeException", ex);
 			feign.FeignException fe = (feign.FeignException) ex.getCause();
-			String message = "FeignStatus=" + fe.status();
-			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(
-					new ErrorResponse(HttpStatus.BAD_REQUEST, message, tracer.currentSpan().context().traceIdString()));
+			String message = "FeignStatus=" + fe.status() + "[Message=" + fe.getCause() + "]";
+			return ResponseEntity.status(HttpStatus.BAD_GATEWAY).body(
+					new ErrorResponse(HttpStatus.BAD_GATEWAY, message, tracer.currentSpan().context().traceIdString()));
 
 		} else {
 			String message = ex.getMessage() != null ? ex.getMessage() : "NULL";
-			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(
-					new ErrorResponse(HttpStatus.BAD_REQUEST, message, tracer.currentSpan().context().traceIdString()));
+			return ResponseEntity.status(HttpStatus.BAD_GATEWAY).body(
+					new ErrorResponse(HttpStatus.BAD_GATEWAY, message, tracer.currentSpan().context().traceIdString()));
 		}
 	}
 
