@@ -9,8 +9,8 @@ import lombok.Getter;
 @AllArgsConstructor
 public class ErrorResponse {
 
-	private final HttpStatus errorMessage;
-	private final String errorCode;
+	private final HttpStatus errorCode;
+	private final String errorMessage;
 	private final String traceId;
 
 }
