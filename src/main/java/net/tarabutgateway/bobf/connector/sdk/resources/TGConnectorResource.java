@@ -7,7 +7,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestAttribute;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.context.request.async.DeferredResult;
@@ -18,6 +20,8 @@ import net.tarabutgateway.bobf.connector.sdk.api.dto.balances.BalancesResponse;
 import net.tarabutgateway.bobf.connector.sdk.api.dto.beneficiaries.BeneficiariesResponse;
 import net.tarabutgateway.bobf.connector.sdk.api.dto.directdebits.DirectDebitsResponse;
 import net.tarabutgateway.bobf.connector.sdk.api.dto.offers.OffersResponse;
+import net.tarabutgateway.bobf.connector.sdk.api.dto.payments.PaymentsRequest;
+import net.tarabutgateway.bobf.connector.sdk.api.dto.payments.PaymentsResponse;
 import net.tarabutgateway.bobf.connector.sdk.api.dto.scheduledpayments.ScheduledPaymentsResponse;
 import net.tarabutgateway.bobf.connector.sdk.api.dto.standingorders.StandingOrdersResponse;
 import net.tarabutgateway.bobf.connector.sdk.api.dto.transactions.TransactionsResponse;
@@ -30,6 +34,7 @@ import net.tarabutgateway.bobf.connector.sdk.api.service.BalanceService;
 import net.tarabutgateway.bobf.connector.sdk.api.service.BeneficiaryService;
 import net.tarabutgateway.bobf.connector.sdk.api.service.DirectDebitService;
 import net.tarabutgateway.bobf.connector.sdk.api.service.OfferService;
+import net.tarabutgateway.bobf.connector.sdk.api.service.PaymentService;
 import net.tarabutgateway.bobf.connector.sdk.api.service.ScheduledPaymentService;
 import net.tarabutgateway.bobf.connector.sdk.api.service.StandingOrderService;
 import net.tarabutgateway.bobf.connector.sdk.api.service.TransactionService;
@@ -60,6 +65,9 @@ public class TGConnectorResource {
 
 	@Autowired(required = false)
 	StandingOrderService standingOrderService;
+
+	@Autowired(required = false)
+	PaymentService paymentService;
 
 	@GetMapping("/accounts")
 	public DeferredResult<AccountsResponse> getAccounts(
@@ -216,6 +224,15 @@ public class TGConnectorResource {
 			@PathVariable(value = "accountId", required = true) String accountId) {
 		DeferredResult<StandingOrdersResponse> defResult = new DeferredResult<>(3000L);
 		standingOrderService.findStandingOrderByAccountId(defResult, psuIdentifierObj, accountId);
+		return defResult;
+	}
+
+	@PostMapping("/payments")
+	public DeferredResult<PaymentsResponse> makePayments(
+			@RequestAttribute(name = "X-TG-PsuIdentifier", required = false) PsuIdentifiers psuIdentifierObj,
+			@RequestBody PaymentsRequest paymentsRequest) {
+		DeferredResult<PaymentsResponse> defResult = new DeferredResult<>(3000L);
+		paymentService.makePayment(defResult, psuIdentifierObj, paymentsRequest);
 		return defResult;
 	}
 

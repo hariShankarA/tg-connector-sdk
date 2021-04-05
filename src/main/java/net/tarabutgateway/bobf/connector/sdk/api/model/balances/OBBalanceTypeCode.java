@@ -22,7 +22,7 @@ public enum OBBalanceTypeCode {
 		return value;
 	}
 
-	public static OBBalanceTypeCode fromValue(String text) {
+	public static OBBalanceTypeCode fromName(String text) {
 		for (OBBalanceTypeCode b : OBBalanceTypeCode.values()) {
 			if (String.valueOf(b.name()).equals(text)) {
 				return b;
