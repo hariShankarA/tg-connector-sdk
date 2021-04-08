@@ -12,7 +12,7 @@ import net.tarabutgateway.bobf.connector.sdk.api.model.common.CreditorDebtorAcco
 public class Initiation {
 
 	@JsonProperty("LocalInstrument")
-	private String localInstrument;
+	private OBLocalInstrumentCode localInstrument;
 	@JsonProperty("InstructionIdentification")
 	private String instructionIdentification;
 	@JsonProperty("EndToEndIdentification")

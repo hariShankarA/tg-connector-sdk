@@ -24,6 +24,7 @@ import net.tarabutgateway.bobf.connector.sdk.api.dto.payments.PaymentsRequest;
 import net.tarabutgateway.bobf.connector.sdk.api.dto.payments.PaymentsResponse;
 import net.tarabutgateway.bobf.connector.sdk.api.dto.scheduledpayments.ScheduledPaymentsResponse;
 import net.tarabutgateway.bobf.connector.sdk.api.dto.standingorders.StandingOrdersResponse;
+import net.tarabutgateway.bobf.connector.sdk.api.dto.supplementaryaccountinfo.SupplementaryAccountInfoResponse;
 import net.tarabutgateway.bobf.connector.sdk.api.dto.transactions.TransactionsResponse;
 import net.tarabutgateway.bobf.connector.sdk.api.model.balances.OBBalanceTypeCode;
 import net.tarabutgateway.bobf.connector.sdk.api.model.common.OBCreditDebitCode;
@@ -37,6 +38,7 @@ import net.tarabutgateway.bobf.connector.sdk.api.service.OfferService;
 import net.tarabutgateway.bobf.connector.sdk.api.service.PaymentService;
 import net.tarabutgateway.bobf.connector.sdk.api.service.ScheduledPaymentService;
 import net.tarabutgateway.bobf.connector.sdk.api.service.StandingOrderService;
+import net.tarabutgateway.bobf.connector.sdk.api.service.SupplementaryAccountInfoService;
 import net.tarabutgateway.bobf.connector.sdk.api.service.TransactionService;
 
 @RestController
@@ -68,6 +70,9 @@ public class TGConnectorResource {
 
 	@Autowired(required = false)
 	PaymentService paymentService;
+	
+	@Autowired(required = false)
+	SupplementaryAccountInfoService supplementaryAccountInfoService;
 
 	@GetMapping("/accounts")
 	public DeferredResult<AccountsResponse> getAccounts(
@@ -236,4 +241,12 @@ public class TGConnectorResource {
 		return defResult;
 	}
 
+	@GetMapping("/accounts/{accountId}/supplementary-account-info")
+	public DeferredResult<SupplementaryAccountInfoResponse> getSupplementaryAccountIfo(
+			@RequestAttribute(name = "X-TG-PsuIdentifier", required = false) PsuIdentifiers psuIdentifierObj,
+			@PathVariable(value = "accountId", required = true) String accountId) {
+		DeferredResult<SupplementaryAccountInfoResponse> defResult = new DeferredResult<>(3000L);
+		supplementaryAccountInfoService.findSupplementaryAccountInfoByAccountId(defResult, psuIdentifierObj, accountId);
+		return defResult;
+	}
 }
