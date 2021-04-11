@@ -15,7 +15,7 @@ import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import net.tarabutgateway.bobf.connector.sdk.api.model.common.PsuIdentifiers;
+import net.tarabutgateway.bobf.connector.sdk.model.common.PsuIdentifiers;
 
 @Component
 public class TGAuthInterceptor extends HandlerInterceptorAdapter {
