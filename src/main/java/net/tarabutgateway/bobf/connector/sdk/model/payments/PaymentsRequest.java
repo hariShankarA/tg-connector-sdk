@@ -2,6 +2,7 @@ package net.tarabutgateway.bobf.connector.sdk.model.payments;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import lombok.Builder;
 import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
@@ -9,6 +10,7 @@ import lombok.Setter;
 @Setter
 @Getter
 @Data
+@Builder
 public class PaymentsRequest {
 
 	@JsonProperty("requestUrl")
