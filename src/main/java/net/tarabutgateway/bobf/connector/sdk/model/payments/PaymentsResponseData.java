@@ -14,7 +14,7 @@ public class PaymentsResponseData {
 	@JsonProperty("id")
 	private String id;
 	@JsonProperty("status")
-	private String status;
+	private OBPaymentStatusCode status;
 	@JsonProperty("creationDateTime")
 	private Date creationDateTime;
 	@JsonProperty("statusUpdateDateTime")
