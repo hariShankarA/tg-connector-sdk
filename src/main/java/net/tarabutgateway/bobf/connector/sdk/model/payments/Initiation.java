@@ -1,5 +1,7 @@
 package net.tarabutgateway.bobf.connector.sdk.model.payments;
 
+import java.util.Date;
+
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import lombok.Builder;
@@ -25,4 +27,7 @@ public class Initiation {
 	private CreditorDebtorAccount debtorAccount;
 	@JsonProperty("RemittanceInformation")
 	private RemittanceInformation remittanceInformation;
+	@JsonProperty("RequestedExecutionDateTime")
+	private Date requestedExecutionDateTime;
+
 }
