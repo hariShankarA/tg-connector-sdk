@@ -27,6 +27,7 @@ import net.tarabutgateway.bobf.connector.sdk.model.directdebits.DirectDebitsResp
 import net.tarabutgateway.bobf.connector.sdk.model.offers.OffersResponse;
 import net.tarabutgateway.bobf.connector.sdk.model.payments.PaymentsRequest;
 import net.tarabutgateway.bobf.connector.sdk.model.payments.PaymentsResponse;
+import net.tarabutgateway.bobf.connector.sdk.model.products.ProductsResponse;
 import net.tarabutgateway.bobf.connector.sdk.model.scheduledpayments.ScheduledPaymentsResponse;
 import net.tarabutgateway.bobf.connector.sdk.model.standingorders.StandingOrdersResponse;
 import net.tarabutgateway.bobf.connector.sdk.model.supplementaryaccountinfo.SupplementaryAccountInfoResponse;
@@ -38,6 +39,7 @@ import net.tarabutgateway.bobf.connector.sdk.service.BeneficiaryService;
 import net.tarabutgateway.bobf.connector.sdk.service.DirectDebitService;
 import net.tarabutgateway.bobf.connector.sdk.service.OfferService;
 import net.tarabutgateway.bobf.connector.sdk.service.PaymentService;
+import net.tarabutgateway.bobf.connector.sdk.service.ProductService;
 import net.tarabutgateway.bobf.connector.sdk.service.ScheduledPaymentService;
 import net.tarabutgateway.bobf.connector.sdk.service.StandingOrderService;
 import net.tarabutgateway.bobf.connector.sdk.service.SupplementaryAccountInfoService;
@@ -72,9 +74,12 @@ public class TGConnectorResource {
 
 	@Autowired(required = false)
 	PaymentService paymentService;
-	
+
 	@Autowired(required = false)
 	SupplementaryAccountInfoService supplementaryAccountInfoService;
+
+	@Autowired(required = false)
+	ProductService productService;
 
 	@GetMapping("/accounts")
 	public DeferredResult<AccountsResponse> getAccounts(
@@ -250,6 +255,13 @@ public class TGConnectorResource {
 			@PathVariable(value = "accountId", required = true) String accountId) {
 		DeferredResult<SupplementaryAccountInfoResponse> defResult = new DeferredResult<>(3000L);
 		supplementaryAccountInfoService.findSupplementaryAccountInfoByAccountId(defResult, psuIdentifierObj, accountId);
+		return defResult;
+	}
+
+	@GetMapping("/products")
+	public DeferredResult<ProductsResponse> getProducts() {
+		DeferredResult<ProductsResponse> defResult = new DeferredResult<>(3000L);
+		productService.findProducts(defResult);
 		return defResult;
 	}
 }

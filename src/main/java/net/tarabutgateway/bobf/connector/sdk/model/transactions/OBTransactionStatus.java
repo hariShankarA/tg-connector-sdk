@@ -4,7 +4,7 @@ import com.fasterxml.jackson.annotation.JsonValue;
 
 public enum OBTransactionStatus {
 
-	BOOKED("Booked"), PENDING("Pending");
+	BOOKED("Booked"), PENDING("Pending"), INTERIM_PENDING("Interimpending");
 
 	private final String value;
 
