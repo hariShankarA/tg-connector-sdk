@@ -1,4 +1,4 @@
-package net.tarabutgateway.bobf.connector.sdk.model.products;
+package net.tarabutgateway.bobf.connector.sdk.model.parties;
 
 import java.util.List;
 
@@ -8,9 +8,9 @@ import net.tarabutgateway.bobf.connector.sdk.model.common.MetaObject;
 
 @Data
 @Builder
-public class ProductsResponse {
+public class PartiesResponse {
 
-	private List data;
+	private List<PartyResponseData> data;
 	private MetaObject meta;
 
 }

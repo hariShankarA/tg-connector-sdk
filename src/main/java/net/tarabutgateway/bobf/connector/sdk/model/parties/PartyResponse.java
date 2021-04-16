@@ -1,6 +1,4 @@
-package net.tarabutgateway.bobf.connector.sdk.model.products;
-
-import java.util.List;
+package net.tarabutgateway.bobf.connector.sdk.model.parties;
 
 import lombok.Builder;
 import lombok.Data;
@@ -8,9 +6,9 @@ import net.tarabutgateway.bobf.connector.sdk.model.common.MetaObject;
 
 @Data
 @Builder
-public class ProductsResponse {
+public class PartyResponse {
 
-	private List data;
+	private PartyResponseData data;
 	private MetaObject meta;
 
 }
