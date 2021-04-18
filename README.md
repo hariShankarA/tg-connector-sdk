@@ -5,7 +5,7 @@ This SDK can be inherited in other BOBF connectors.
 Service endpoints are abstracted and not visible to connectors.
 Ozone DTO and model classes are defined in the SDK.
 Exception handing and error messages are standardized. (further enhancement required)
-Logging standardized. (further enhancement required)
+Logging standardized. (further enhancement required).
 
 
 # Features
