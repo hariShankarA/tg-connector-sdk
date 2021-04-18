@@ -50,6 +50,8 @@ import net.tarabutgateway.bobf.connector.sdk.service.TransactionService;
 
 @RestController
 public class TGConnectorResource {
+	
+	private static final Long DEFAULT_DEFERRED_TIMEOUT = 15000L;
 
 	@Autowired(required = false)
 	AccountService accountService;
@@ -91,7 +93,7 @@ public class TGConnectorResource {
 	public DeferredResult<AccountsResponse> getAccounts(
 			@RequestAttribute(name = "X-TG-PsuIdentifier", required = false) PsuIdentifiers psuIdentifier,
 			@RequestParam(required = false, name = "accountIds", defaultValue = "") List<String> accountIds) {
-		DeferredResult<AccountsResponse> defResult = new DeferredResult<>(3000L);
+		DeferredResult<AccountsResponse> defResult = new DeferredResult<>(DEFAULT_DEFERRED_TIMEOUT);
 		accountService.findAccounts(defResult, psuIdentifier, accountIds);
 		return defResult;
 	}
@@ -100,7 +102,7 @@ public class TGConnectorResource {
 	public DeferredResult<AccountResponse> getAccount(
 			@RequestAttribute(name = "X-TG-PsuIdentifier", required = false) PsuIdentifiers psuIdentifier,
 			@PathVariable(value = "accountId", required = true) String accountId) {
-		DeferredResult<AccountResponse> defResult = new DeferredResult<>(3000L);
+		DeferredResult<AccountResponse> defResult = new DeferredResult<>(DEFAULT_DEFERRED_TIMEOUT);
 		accountService.findByAccountId(defResult, psuIdentifier, accountId);
 		return defResult;
 	}
@@ -110,7 +112,7 @@ public class TGConnectorResource {
 			@RequestAttribute(name = "X-TG-PsuIdentifier", required = false) PsuIdentifiers psuIdentifier,
 			@RequestParam(required = false, name = "accountIds", defaultValue = "") List<String> accountIds,
 			@RequestParam(required = false, name = "balanceType", defaultValue = "") OBBalanceTypeCode balanceType) {
-		DeferredResult<BalancesResponse> defResult = new DeferredResult<>(3000L);
+		DeferredResult<BalancesResponse> defResult = new DeferredResult<>(DEFAULT_DEFERRED_TIMEOUT);
 		balanceService.findBalancesByAccountIds(defResult, psuIdentifier, accountIds, balanceType);
 		return defResult;
 	}
@@ -120,7 +122,7 @@ public class TGConnectorResource {
 			@RequestAttribute(name = "X-TG-PsuIdentifier", required = false) PsuIdentifiers psuIdentifier,
 			@PathVariable(value = "accountId", required = true) String accountId,
 			@RequestParam(required = false, name = "balanceType", defaultValue = "") OBBalanceTypeCode balanceType) {
-		DeferredResult<BalancesResponse> defResult = new DeferredResult<>(3000L);
+		DeferredResult<BalancesResponse> defResult = new DeferredResult<>(DEFAULT_DEFERRED_TIMEOUT);
 		balanceService.findBalancesByAccountId(defResult, psuIdentifier, accountId, balanceType);
 		return defResult;
 	}
@@ -134,7 +136,7 @@ public class TGConnectorResource {
 			@RequestParam(required = false, name = "creditDebitIndicator", defaultValue = "") OBCreditDebitCode creditDebitIndicator,
 			@RequestParam(required = false, name = "fromBookingDateTime") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) Date fromBookingDateTime,
 			@RequestParam(required = false, name = "toBookingDateTime") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) Date toBookingDateTime) {
-		DeferredResult<TransactionsResponse> defResult = new DeferredResult<>(3000L);
+		DeferredResult<TransactionsResponse> defResult = new DeferredResult<>(DEFAULT_DEFERRED_TIMEOUT);
 		transactionService.findTransactions(defResult, psuIdentifier, accountIds, page, status, creditDebitIndicator,
 				fromBookingDateTime, toBookingDateTime);
 		return defResult;
@@ -149,7 +151,7 @@ public class TGConnectorResource {
 			@RequestParam(required = false, name = "creditDebitIndicator", defaultValue = "") OBCreditDebitCode creditDebitIndicator,
 			@RequestParam(required = false, name = "fromBookingDateTime") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) Date fromBookingDateTime,
 			@RequestParam(required = false, name = "toBookingDateTime") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) Date toBookingDateTime) {
-		DeferredResult<TransactionsResponse> defResult = new DeferredResult<>(3000L);
+		DeferredResult<TransactionsResponse> defResult = new DeferredResult<>(DEFAULT_DEFERRED_TIMEOUT);
 		transactionService.findTransactionsByAccountId(defResult, psuIdentifier, accountId, page, status,
 				creditDebitIndicator, fromBookingDateTime, toBookingDateTime);
 		return defResult;
@@ -159,7 +161,7 @@ public class TGConnectorResource {
 	public DeferredResult<BeneficiariesResponse> getBeneficiaries(
 			@RequestAttribute(name = "X-TG-PsuIdentifier", required = false) PsuIdentifiers psuIdentifier,
 			@RequestParam(required = false, name = "accountIds", defaultValue = "") List<String> accountIds) {
-		DeferredResult<BeneficiariesResponse> defResult = new DeferredResult<>(3000L);
+		DeferredResult<BeneficiariesResponse> defResult = new DeferredResult<>(DEFAULT_DEFERRED_TIMEOUT);
 		beneficiaryService.findBeneficiaries(defResult, psuIdentifier, accountIds);
 		return defResult;
 	}
@@ -168,7 +170,7 @@ public class TGConnectorResource {
 	public DeferredResult<BeneficiariesResponse> getBeneficiary(
 			@RequestAttribute(name = "X-TG-PsuIdentifier", required = true) PsuIdentifiers psuIdentifier,
 			@PathVariable(value = "accountId", required = true) String accountId) {
-		DeferredResult<BeneficiariesResponse> defResult = new DeferredResult<>(3000L);
+		DeferredResult<BeneficiariesResponse> defResult = new DeferredResult<>(DEFAULT_DEFERRED_TIMEOUT);
 		beneficiaryService.findBeneficiariesAccountId(defResult, psuIdentifier, accountId);
 		return defResult;
 	}
@@ -177,7 +179,7 @@ public class TGConnectorResource {
 	public DeferredResult<DirectDebitsResponse> getDirectDebits(
 			@RequestAttribute(name = "X-TG-PsuIdentifier", required = false) PsuIdentifiers psuIdentifierObj,
 			@RequestParam(required = false, name = "accountIds", defaultValue = "") List<String> accountIds) {
-		DeferredResult<DirectDebitsResponse> defResult = new DeferredResult<>(3000L);
+		DeferredResult<DirectDebitsResponse> defResult = new DeferredResult<>(DEFAULT_DEFERRED_TIMEOUT);
 		directDebitService.findDirectDebits(defResult, psuIdentifierObj, accountIds);
 		return defResult;
 	}
@@ -186,7 +188,7 @@ public class TGConnectorResource {
 	public DeferredResult<DirectDebitsResponse> getDirectDebit(
 			@RequestAttribute(name = "X-TG-PsuIdentifier", required = false) PsuIdentifiers psuIdentifierObj,
 			@PathVariable(value = "accountId", required = true) String accountId) {
-		DeferredResult<DirectDebitsResponse> defResult = new DeferredResult<>(3000L);
+		DeferredResult<DirectDebitsResponse> defResult = new DeferredResult<>(DEFAULT_DEFERRED_TIMEOUT);
 		directDebitService.findDirectDebitByAccountId(defResult, psuIdentifierObj, accountId);
 		return defResult;
 	}
@@ -195,7 +197,7 @@ public class TGConnectorResource {
 	public DeferredResult<OffersResponse> getOffers(
 			@RequestAttribute(name = "X-TG-PsuIdentifier", required = false) PsuIdentifiers psuIdentifierObj,
 			@RequestParam(required = false, name = "accountIds", defaultValue = "") List<String> accountIds) {
-		DeferredResult<OffersResponse> defResult = new DeferredResult<>(3000L);
+		DeferredResult<OffersResponse> defResult = new DeferredResult<>(DEFAULT_DEFERRED_TIMEOUT);
 		offerService.findOffers(defResult, psuIdentifierObj, accountIds);
 		return defResult;
 	}
@@ -204,7 +206,7 @@ public class TGConnectorResource {
 	public DeferredResult<OffersResponse> getOffer(
 			@RequestAttribute(name = "X-TG-PsuIdentifier", required = true) PsuIdentifiers psuIdentifierObj,
 			@PathVariable(value = "accountId", required = true) String accountId) {
-		DeferredResult<OffersResponse> defResult = new DeferredResult<>(3000L);
+		DeferredResult<OffersResponse> defResult = new DeferredResult<>(DEFAULT_DEFERRED_TIMEOUT);
 		offerService.findOffersByAccountId(defResult, psuIdentifierObj, accountId);
 		return defResult;
 	}
@@ -213,7 +215,7 @@ public class TGConnectorResource {
 	public DeferredResult<ScheduledPaymentsResponse> getFuturDatedPayment(
 			@RequestAttribute(name = "X-TG-PsuIdentifier", required = false) PsuIdentifiers psuIdentifierObj,
 			@RequestParam(required = false, name = "accountIds", defaultValue = "") List<String> accountIds) {
-		DeferredResult<ScheduledPaymentsResponse> defResult = new DeferredResult<>(3000L);
+		DeferredResult<ScheduledPaymentsResponse> defResult = new DeferredResult<>(DEFAULT_DEFERRED_TIMEOUT);
 		scheduledPaymentService.findScheduledPayments(defResult, psuIdentifierObj, accountIds);
 		return defResult;
 	}
@@ -222,7 +224,7 @@ public class TGConnectorResource {
 	public DeferredResult<ScheduledPaymentsResponse> getFuturDatedPayments(
 			@RequestAttribute(name = "X-TG-PsuIdentifier", required = false) PsuIdentifiers psuIdentifierObj,
 			@PathVariable(value = "accountId", required = true) String accountId) {
-		DeferredResult<ScheduledPaymentsResponse> defResult = new DeferredResult<>(3000L);
+		DeferredResult<ScheduledPaymentsResponse> defResult = new DeferredResult<>(DEFAULT_DEFERRED_TIMEOUT);
 		scheduledPaymentService.findScheduledPaymentByAccountId(defResult, psuIdentifierObj, accountId);
 		return defResult;
 	}
@@ -231,7 +233,7 @@ public class TGConnectorResource {
 	public DeferredResult<StandingOrdersResponse> getStandingOrders(
 			@RequestAttribute(name = "X-TG-PsuIdentifier", required = false) PsuIdentifiers psuIdentifierObj,
 			@RequestParam(required = false, name = "accountIds", defaultValue = "") List<String> accountIds) {
-		DeferredResult<StandingOrdersResponse> defResult = new DeferredResult<>(3000L);
+		DeferredResult<StandingOrdersResponse> defResult = new DeferredResult<>(DEFAULT_DEFERRED_TIMEOUT);
 		standingOrderService.findStandingOrders(defResult, psuIdentifierObj, accountIds);
 		return defResult;
 	}
@@ -240,7 +242,7 @@ public class TGConnectorResource {
 	public DeferredResult<StandingOrdersResponse> getStandingOrder(
 			@RequestAttribute(name = "X-TG-PsuIdentifier", required = false) PsuIdentifiers psuIdentifierObj,
 			@PathVariable(value = "accountId", required = true) String accountId) {
-		DeferredResult<StandingOrdersResponse> defResult = new DeferredResult<>(3000L);
+		DeferredResult<StandingOrdersResponse> defResult = new DeferredResult<>(DEFAULT_DEFERRED_TIMEOUT);
 		standingOrderService.findStandingOrderByAccountId(defResult, psuIdentifierObj, accountId);
 		return defResult;
 	}
@@ -250,7 +252,7 @@ public class TGConnectorResource {
 	public DeferredResult<PaymentsResponse> makePayments(
 			@RequestAttribute(name = "X-TG-PsuIdentifier", required = false) PsuIdentifiers psuIdentifierObj,
 			@RequestBody PaymentsRequest paymentsRequest) {
-		DeferredResult<PaymentsResponse> defResult = new DeferredResult<>(3000L);
+		DeferredResult<PaymentsResponse> defResult = new DeferredResult<>(DEFAULT_DEFERRED_TIMEOUT);
 		paymentService.makePayment(defResult, psuIdentifierObj, paymentsRequest);
 		return defResult;
 	}
@@ -259,14 +261,14 @@ public class TGConnectorResource {
 	public DeferredResult<SupplementaryAccountInfoResponse> getSupplementaryAccountIfo(
 			@RequestAttribute(name = "X-TG-PsuIdentifier", required = false) PsuIdentifiers psuIdentifierObj,
 			@PathVariable(value = "accountId", required = true) String accountId) {
-		DeferredResult<SupplementaryAccountInfoResponse> defResult = new DeferredResult<>(3000L);
+		DeferredResult<SupplementaryAccountInfoResponse> defResult = new DeferredResult<>(DEFAULT_DEFERRED_TIMEOUT);
 		supplementaryAccountInfoService.findSupplementaryAccountInfoByAccountId(defResult, psuIdentifierObj, accountId);
 		return defResult;
 	}
 
 	@GetMapping("/products")
 	public DeferredResult<ProductsResponse> getProducts() {
-		DeferredResult<ProductsResponse> defResult = new DeferredResult<>(3000L);
+		DeferredResult<ProductsResponse> defResult = new DeferredResult<>(DEFAULT_DEFERRED_TIMEOUT);
 		productService.findProducts(defResult);
 		return defResult;
 	}
@@ -274,7 +276,7 @@ public class TGConnectorResource {
 	@GetMapping("/party")
 	public DeferredResult<PartyResponse> getParty(
 			@RequestAttribute(name = "X-TG-PsuIdentifier", required = true) PsuIdentifiers psuIdentifierObj) {
-		DeferredResult<PartyResponse> defResult = new DeferredResult<>(3000L);
+		DeferredResult<PartyResponse> defResult = new DeferredResult<>(DEFAULT_DEFERRED_TIMEOUT);
 		partyService.findCustomer(defResult, psuIdentifierObj);
 		return defResult;
 	}
@@ -283,7 +285,7 @@ public class TGConnectorResource {
 	public DeferredResult<PartyResponse> getAccountParty(
 			@RequestAttribute(name = "X-TG-PsuIdentifier", required = true) PsuIdentifiers psuIdentifierObj,
 			@PathVariable(value = "accountId", required = true) String accountId) {
-		DeferredResult<PartyResponse> defResult = new DeferredResult<>(3000L);
+		DeferredResult<PartyResponse> defResult = new DeferredResult<>(DEFAULT_DEFERRED_TIMEOUT);
 		partyService.findCustomerByAccountId(defResult, psuIdentifierObj, accountId);
 		return defResult;
 	}
@@ -292,7 +294,7 @@ public class TGConnectorResource {
 	public DeferredResult<PartiesResponse> getAccountParties(
 			@RequestAttribute(name = "X-TG-PsuIdentifier", required = true) PsuIdentifiers psuIdentifierObj,
 			@PathVariable(value = "accountId", required = true) String accountId) {
-		DeferredResult<PartiesResponse> defResult = new DeferredResult<>(3000L);
+		DeferredResult<PartiesResponse> defResult = new DeferredResult<>(DEFAULT_DEFERRED_TIMEOUT);
 		partyService.findCustomersByAccountId(defResult, psuIdentifierObj, accountId);
 		return defResult;
 	}

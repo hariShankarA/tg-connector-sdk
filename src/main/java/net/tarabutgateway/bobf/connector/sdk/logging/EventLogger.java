@@ -31,10 +31,10 @@ public class EventLogger {
 			.setSerializationInclusion(Include.NON_NULL)
 			.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
 
-	public static void log(EventType event, String clazz, String refKey, String refValue, String bankId) {
+	public static void log(EventType event, String clazz, String refKey, String refValue, String bankId, String extraInfo) {
 
 		try {
-			String eventJson = mapper.writeValueAsString(new Event(event, clazz, refKey, refValue, bankId));
+			String eventJson = mapper.writeValueAsString(new Event(event, clazz, refKey, refValue, bankId, extraInfo));
 			EVENT_LOGGER.info(eventJson);
 		} catch (JsonProcessingException e) {
 			LOGGER.error("Failed to log event due to problem serializing to json", e);
@@ -52,8 +52,9 @@ public class EventLogger {
 		private final String refKey;
 		private final String refValue;
 		private final Instant createdAt = Instant.now();
+		private final String extraInfo;
 
-		public Event(EventType eventType, String caller, String refKey, String refValue, String bankId) {
+		public Event(EventType eventType, String caller, String refKey, String refValue, String bankId, String extraInfo) {
 
 			this.caller = caller;
 			this.traceId = MDC.get("traceId");
@@ -62,6 +63,7 @@ public class EventLogger {
 			this.eventType = eventType;
 			this.refKey = refKey;
 			this.refValue = refValue;
+			this.extraInfo = extraInfo;
 		}
 
 	}
