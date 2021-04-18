@@ -8,7 +8,7 @@ import net.tarabutgateway.bobf.connector.sdk.model.common.Amount;
 @Builder
 public class CreditLine {
 	private boolean included;
-
 	private Amount amount;
+	private String creditType;
 
 }
