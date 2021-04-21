@@ -16,7 +16,7 @@ public class PaymentsRequest {
 	@JsonProperty("requestUrl")
 	private String requestUrl;
 	@JsonProperty("paymentType")
-	private String paymentType;
+	private OBPaymentType paymentType;
 	@JsonProperty("request")
 	private Request request;
 	@JsonProperty("requestHeaders")
