@@ -8,9 +8,9 @@ import lombok.Data;
 @Data
 @Builder
 public class Amount {
-	@JsonProperty("Amount")
+	@JsonProperty("amount")
 	private String amount;
-	@JsonProperty("Currency")
+	@JsonProperty("currency")
 	private String currency;
 
 }
