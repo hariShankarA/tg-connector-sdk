@@ -3,6 +3,8 @@ package net.tarabutgateway.bobf.connector.sdk.resources;
 import java.util.Date;
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
@@ -251,7 +253,7 @@ public class TGConnectorResource {
 	@ResponseStatus(HttpStatus.CREATED)
 	public DeferredResult<PaymentsResponse> makePayments(
 			@RequestAttribute(name = "X-TG-PsuIdentifier", required = false) PsuIdentifiers psuIdentifierObj,
-			@RequestBody PaymentsRequest paymentsRequest) {
+			@Valid @RequestBody PaymentsRequest paymentsRequest) {
 		DeferredResult<PaymentsResponse> defResult = new DeferredResult<>(DEFAULT_DEFERRED_TIMEOUT);
 		paymentService.makePayment(defResult, psuIdentifierObj, paymentsRequest);
 		return defResult;
