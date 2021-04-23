@@ -1,5 +1,7 @@
 package net.tarabutgateway.bobf.connector.sdk.model.scheduledpayments;
 
+import java.util.Date;
+
 import lombok.Builder;
 import lombok.Data;
 import net.tarabutgateway.bobf.connector.sdk.model.common.Amount;
@@ -13,7 +15,7 @@ public class ScheduledPayment {
 
 	private String accountId;
 	private String scheduledPaymentId;
-	private String scheduledPaymentDateTime;
+	private Date scheduledPaymentDateTime;
 	private String scheduledType;
 	private String reference;
 	private String debtorReference;
