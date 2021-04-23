@@ -4,8 +4,10 @@ import com.fasterxml.jackson.annotation.JsonValue;
 
 public enum OBPaymentType {
 
-	DOMESTIC_PAYMENT("domestic-payment"), FUTURE_DATED_PAYMENT("future-dated-payment"),
-	STANDING_ORDER("standing-order"), INTERNATIONAL_PAYMENT("international-payment"),
+	DOMESTIC_PAYMENT("domestic-payment"), 
+	FUTURE_DATED_PAYMENT("future-dated-payment"),
+	STANDING_ORDER("standing-order"), 
+	INTERNATIONAL_PAYMENT("international-payment"),
 	INTERNATIONAL_FUTURE_DATED_PAYMENT("international-future-dated-payment"),
 	INTERNATIONAL_STANDING_ORDER("international-standing-order");
 
@@ -29,5 +31,11 @@ public enum OBPaymentType {
 		}
 		return null;
 	}
+	
+	public boolean isInternational() {
+		return value.startsWith("international");
+	}
+	
+	
 
 }

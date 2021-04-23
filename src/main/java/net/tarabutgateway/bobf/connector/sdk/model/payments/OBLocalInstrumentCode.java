@@ -26,5 +26,11 @@ public enum OBLocalInstrumentCode {
 		}
 		return null;
 	}
+	
+	public boolean isDeferred() {
+		return !value.endsWith("NRT");
+	}
+	
+	
 
 }

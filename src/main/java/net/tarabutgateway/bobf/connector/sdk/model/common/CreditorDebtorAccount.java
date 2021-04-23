@@ -10,7 +10,7 @@ import lombok.Data;
 public class CreditorDebtorAccount {
 
 	@JsonProperty("SchemeName")
-	private String schemeName;
+	private CreditorDebtorAccountScheme schemeName;
 	@JsonProperty("Identification")
 	private String identification;
 	@JsonProperty("SecondaryIdentification")

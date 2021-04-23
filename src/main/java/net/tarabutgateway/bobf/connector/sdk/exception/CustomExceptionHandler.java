@@ -9,6 +9,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.web.HttpMediaTypeNotAcceptableException;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.MissingRequestHeaderException;
 import org.springframework.web.bind.MissingServletRequestParameterException;
 import org.springframework.web.bind.UnsatisfiedServletRequestParameterException;
@@ -35,7 +36,7 @@ public class CustomExceptionHandler {
 	@ResponseBody
 	@ExceptionHandler({ MethodArgumentTypeMismatchException.class, HttpMessageNotReadableException.class,
 			HttpMediaTypeNotAcceptableException.class, UnsatisfiedServletRequestParameterException.class,
-			MissingServletRequestParameterException.class, MissingRequestHeaderException.class
+			MissingServletRequestParameterException.class, MissingRequestHeaderException.class, MethodArgumentNotValidException.class
 
 	})
 	public ErrorResponse handleInvalidRequests(Exception ex) {
@@ -84,5 +85,17 @@ public class CustomExceptionHandler {
 				ex.getLocalizedMessage(), tracer.currentSpan().context().traceIdString()));
 
 	}
+	
+	@ResponseStatus(HttpStatus.BAD_GATEWAY)
+	@ResponseBody
+	@ExceptionHandler({ InvalidPaymentParamsException.class })
+	public ResponseEntity<ErrorResponse> handleInvalidPaymentParamsException(InvalidPaymentParamsException ex) {
+
+		LOGGER.error("InvalidPaymentParamsException", ex);
+		return ResponseEntity.status(HttpStatus.BAD_GATEWAY).body(new ErrorResponse(HttpStatus.BAD_GATEWAY,
+				ex.getLocalizedMessage(), tracer.currentSpan().context().traceIdString()));
+
+	}	
+	
 
 }
