@@ -52,14 +52,15 @@ public class CustomExceptionHandler {
 
 		if (ex.getCause() instanceof feign.FeignException) {
 
-			LOGGER.error("HystrixRuntimeException", ex);
 			feign.FeignException fe = (feign.FeignException) ex.getCause();
 			String message = "FeignStatus=" + fe.status() + "[Message=" + fe.getCause() + "]";
+			LOGGER.error("[FeignException] [{}] [{}] [{}] ", tracer.currentSpan().context().traceIdString(), message, ex);
 			return ResponseEntity.status(HttpStatus.BAD_GATEWAY).body(
 					new ErrorResponse(HttpStatus.BAD_GATEWAY, message, tracer.currentSpan().context().traceIdString()));
 
 		} else {
 			String message = ex.getMessage() != null ? ex.getMessage() : "NULL";
+			LOGGER.error("[NonFeignHystrixException] [{}] [{}] [{}] ", tracer.currentSpan().context().traceIdString(), message, ex);			
 			return ResponseEntity.status(HttpStatus.BAD_GATEWAY).body(
 					new ErrorResponse(HttpStatus.BAD_GATEWAY, message, tracer.currentSpan().context().traceIdString()));
 		}
@@ -70,8 +71,8 @@ public class CustomExceptionHandler {
 	@ExceptionHandler(InvalidParamsException.class)
 	public ErrorResponse handleParamsNotAvailabe(InvalidParamsException ex) {
 
-		LOGGER.error("InvalidParamsException Exception");
 		String message = ex.getMessage() != null ? ex.getMessage() : "NULL";
+		LOGGER.error("[InvalidParamsException] [{}] [{}] [{}] ", tracer.currentSpan().context().traceIdString(), message, ex);					
 		return new ErrorResponse(HttpStatus.BAD_REQUEST, message, tracer.currentSpan().context().traceIdString());
 	}
 
@@ -80,7 +81,8 @@ public class CustomExceptionHandler {
 	@ExceptionHandler({ TransformationException.class })
 	public ResponseEntity<ErrorResponse> handleTransformationException(TransformationException ex) {
 
-		LOGGER.error("TransformationException", ex);
+		
+		LOGGER.error("[TransformationException] [{}] [{}] [{}] ", tracer.currentSpan().context().traceIdString(), ex.getLocalizedMessage(), ex);		
 		return ResponseEntity.status(HttpStatus.BAD_GATEWAY).body(new ErrorResponse(HttpStatus.BAD_GATEWAY,
 				ex.getLocalizedMessage(), tracer.currentSpan().context().traceIdString()));
 
@@ -91,7 +93,7 @@ public class CustomExceptionHandler {
 	@ExceptionHandler({ InvalidPaymentParamsException.class })
 	public ResponseEntity<ErrorResponse> handleInvalidPaymentParamsException(InvalidPaymentParamsException ex) {
 
-		LOGGER.error("InvalidPaymentParamsException", ex);
+		LOGGER.error("[InvalidPaymentParamsException] [{}] [{}] [{}] ", tracer.currentSpan().context().traceIdString(), ex.getLocalizedMessage(), ex);		
 		return ResponseEntity.status(HttpStatus.BAD_GATEWAY).body(new ErrorResponse(HttpStatus.BAD_GATEWAY,
 				ex.getLocalizedMessage(), tracer.currentSpan().context().traceIdString()));
 

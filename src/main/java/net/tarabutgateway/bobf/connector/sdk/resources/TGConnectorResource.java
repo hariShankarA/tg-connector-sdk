@@ -53,7 +53,7 @@ import net.tarabutgateway.bobf.connector.sdk.service.TransactionService;
 @RestController
 public class TGConnectorResource {
 	
-	private static final Long DEFAULT_DEFERRED_TIMEOUT = 15000L;
+	private static final Long DEFAULT_DEFERRED_TIMEOUT = 20000L;
 
 	@Autowired(required = false)
 	AccountService accountService;
