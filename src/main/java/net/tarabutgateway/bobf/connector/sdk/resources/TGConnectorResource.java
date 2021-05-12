@@ -26,6 +26,8 @@ import net.tarabutgateway.bobf.connector.sdk.model.beneficiaries.BeneficiariesRe
 import net.tarabutgateway.bobf.connector.sdk.model.common.OBCreditDebitCode;
 import net.tarabutgateway.bobf.connector.sdk.model.common.PsuIdentifiers;
 import net.tarabutgateway.bobf.connector.sdk.model.directdebits.DirectDebitsResponse;
+import net.tarabutgateway.bobf.connector.sdk.model.exchange.ExchangeRateRequest;
+import net.tarabutgateway.bobf.connector.sdk.model.exchange.ExchangeRateResponse;
 import net.tarabutgateway.bobf.connector.sdk.model.offers.OffersResponse;
 import net.tarabutgateway.bobf.connector.sdk.model.parties.PartiesResponse;
 import net.tarabutgateway.bobf.connector.sdk.model.parties.PartyResponse;
@@ -41,6 +43,7 @@ import net.tarabutgateway.bobf.connector.sdk.service.AccountService;
 import net.tarabutgateway.bobf.connector.sdk.service.BalanceService;
 import net.tarabutgateway.bobf.connector.sdk.service.BeneficiaryService;
 import net.tarabutgateway.bobf.connector.sdk.service.DirectDebitService;
+import net.tarabutgateway.bobf.connector.sdk.service.ExchangeRateService;
 import net.tarabutgateway.bobf.connector.sdk.service.OfferService;
 import net.tarabutgateway.bobf.connector.sdk.service.PartyService;
 import net.tarabutgateway.bobf.connector.sdk.service.PaymentService;
@@ -52,7 +55,7 @@ import net.tarabutgateway.bobf.connector.sdk.service.TransactionService;
 
 @RestController
 public class TGConnectorResource {
-	
+
 	private static final Long DEFAULT_DEFERRED_TIMEOUT = 20000L;
 
 	@Autowired(required = false)
@@ -87,9 +90,12 @@ public class TGConnectorResource {
 
 	@Autowired(required = false)
 	ProductService productService;
-	
+
 	@Autowired(required = false)
 	PartyService partyService;
+
+	@Autowired(required = false)
+	ExchangeRateService exchangeRateService;
 
 	@GetMapping("/accounts")
 	public DeferredResult<AccountsResponse> getAccounts(
@@ -274,7 +280,7 @@ public class TGConnectorResource {
 		productService.findProducts(defResult);
 		return defResult;
 	}
-	
+
 	@GetMapping("/party")
 	public DeferredResult<PartyResponse> getParty(
 			@RequestAttribute(name = "X-TG-PsuIdentifier", required = true) PsuIdentifiers psuIdentifierObj) {
@@ -291,13 +297,22 @@ public class TGConnectorResource {
 		partyService.findCustomerByAccountId(defResult, psuIdentifierObj, accountId);
 		return defResult;
 	}
-	
+
 	@GetMapping("/accounts/{accountId}/parties")
 	public DeferredResult<PartiesResponse> getAccountParties(
 			@RequestAttribute(name = "X-TG-PsuIdentifier", required = true) PsuIdentifiers psuIdentifierObj,
 			@PathVariable(value = "accountId", required = true) String accountId) {
 		DeferredResult<PartiesResponse> defResult = new DeferredResult<>(DEFAULT_DEFERRED_TIMEOUT);
 		partyService.findCustomersByAccountId(defResult, psuIdentifierObj, accountId);
+		return defResult;
+	}
+
+	@PostMapping("/exchangeRate")
+	public DeferredResult<ExchangeRateResponse> getExchangeRate(
+			@RequestAttribute(name = "X-TG-PsuIdentifier", required = true) PsuIdentifiers psuIdentifierObj,
+			@Valid @RequestBody ExchangeRateRequest exchangeRateRequest) {
+		DeferredResult<ExchangeRateResponse> defResult = new DeferredResult<>(DEFAULT_DEFERRED_TIMEOUT);
+		exchangeRateService.getExchangeRate(defResult, psuIdentifierObj, exchangeRateRequest);
 		return defResult;
 	}
 }
