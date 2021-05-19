@@ -21,5 +21,5 @@ public class Request {
 	private Risk risk;
 
 	@JsonProperty("additionalProp1")
-	private Map<String, String> additionalProp1;
+	private Map<String, Object> additionalProp1;
 }
