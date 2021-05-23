@@ -1,7 +1,6 @@
 
 package net.tarabutgateway.bobf.connector.sdk.model.paymentcharges;
 
-
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import lombok.Builder;
@@ -15,14 +14,15 @@ public class PaymentChargesRequest {
 
 	@JsonProperty("amount")
 	private Double amount;
-	@JsonProperty("sourceCurrency")
-	private String sourceCurrency;
-	@JsonProperty("destinationCurrency")
-	private String destinationCurrency;
+	@JsonProperty("currency")
+	private String currency;
+	@JsonProperty("sourceAccountCurrency")
+	private String sourceAccountCurrency;
 	@JsonProperty("sourceAccount")
 	private String sourceAccount;
 	@JsonProperty("localInstrument")
 	private OBLocalInstrumentCode localInstrument;
 	@JsonProperty("paymentType")
 	private OBPaymentType paymentType;
+
 }
