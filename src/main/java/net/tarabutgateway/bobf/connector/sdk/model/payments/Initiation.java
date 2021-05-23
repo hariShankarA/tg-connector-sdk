@@ -13,6 +13,9 @@ import net.tarabutgateway.bobf.connector.sdk.model.common.CreditorDebtorAccount;
 @Data
 @Builder
 public class Initiation {
+	
+	@JsonProperty("CurrencyOfTransfer")
+	private String currencyOfTransfer;
 
 	@JsonProperty("LocalInstrument")
 	private OBLocalInstrumentCode localInstrument;
