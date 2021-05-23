@@ -26,11 +26,11 @@ import net.tarabutgateway.bobf.connector.sdk.model.beneficiaries.BeneficiariesRe
 import net.tarabutgateway.bobf.connector.sdk.model.common.OBCreditDebitCode;
 import net.tarabutgateway.bobf.connector.sdk.model.common.PsuIdentifiers;
 import net.tarabutgateway.bobf.connector.sdk.model.directdebits.DirectDebitsResponse;
-import net.tarabutgateway.bobf.connector.sdk.model.exchange.ExchangeRateRequest;
-import net.tarabutgateway.bobf.connector.sdk.model.exchange.ExchangeRateResponse;
 import net.tarabutgateway.bobf.connector.sdk.model.offers.OffersResponse;
 import net.tarabutgateway.bobf.connector.sdk.model.parties.PartiesResponse;
 import net.tarabutgateway.bobf.connector.sdk.model.parties.PartyResponse;
+import net.tarabutgateway.bobf.connector.sdk.model.paymentcharges.PaymentChargesRequest;
+import net.tarabutgateway.bobf.connector.sdk.model.paymentcharges.PaymentChargesResponse;
 import net.tarabutgateway.bobf.connector.sdk.model.payments.PaymentsRequest;
 import net.tarabutgateway.bobf.connector.sdk.model.payments.PaymentsResponse;
 import net.tarabutgateway.bobf.connector.sdk.model.products.ProductsResponse;
@@ -43,9 +43,9 @@ import net.tarabutgateway.bobf.connector.sdk.service.AccountService;
 import net.tarabutgateway.bobf.connector.sdk.service.BalanceService;
 import net.tarabutgateway.bobf.connector.sdk.service.BeneficiaryService;
 import net.tarabutgateway.bobf.connector.sdk.service.DirectDebitService;
-import net.tarabutgateway.bobf.connector.sdk.service.ExchangeRateService;
 import net.tarabutgateway.bobf.connector.sdk.service.OfferService;
 import net.tarabutgateway.bobf.connector.sdk.service.PartyService;
+import net.tarabutgateway.bobf.connector.sdk.service.PaymentChargesService;
 import net.tarabutgateway.bobf.connector.sdk.service.PaymentService;
 import net.tarabutgateway.bobf.connector.sdk.service.ProductService;
 import net.tarabutgateway.bobf.connector.sdk.service.ScheduledPaymentService;
@@ -95,7 +95,7 @@ public class TGConnectorResource {
 	PartyService partyService;
 
 	@Autowired(required = false)
-	ExchangeRateService exchangeRateService;
+	PaymentChargesService paymentChargesService;
 
 	@GetMapping("/accounts")
 	public DeferredResult<AccountsResponse> getAccounts(
@@ -307,12 +307,12 @@ public class TGConnectorResource {
 		return defResult;
 	}
 
-	@PostMapping("/exchangeRate")
-	public DeferredResult<ExchangeRateResponse> getExchangeRate(
+	@PostMapping("/paymentCharges")
+	public DeferredResult<PaymentChargesResponse> getPaymentCharges(
 			@RequestAttribute(name = "X-TG-PsuIdentifier", required = true) PsuIdentifiers psuIdentifierObj,
-			@Valid @RequestBody ExchangeRateRequest exchangeRateRequest) {
-		DeferredResult<ExchangeRateResponse> defResult = new DeferredResult<>(DEFAULT_DEFERRED_TIMEOUT);
-		exchangeRateService.getExchangeRate(defResult, psuIdentifierObj, exchangeRateRequest);
+			@Valid @RequestBody PaymentChargesRequest paymentChargesRequest) {
+		DeferredResult<PaymentChargesResponse> defResult = new DeferredResult<>(DEFAULT_DEFERRED_TIMEOUT);
+		paymentChargesService.getPaymentCharges(defResult, psuIdentifierObj, paymentChargesRequest);
 		return defResult;
 	}
 }

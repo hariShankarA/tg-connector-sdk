@@ -1,4 +1,4 @@
-package net.tarabutgateway.bobf.connector.sdk.model.exchange;
+package net.tarabutgateway.bobf.connector.sdk.model.paymentcharges;
 
 import java.util.Map;
 
@@ -9,7 +9,7 @@ import lombok.Data;
 
 @Data
 @Builder
-public class ExchangeRateResponse {
+public class PaymentChargesResponse {
 
 	@JsonProperty("fromCurrency")
 	private String fromCurrency;
@@ -26,5 +26,20 @@ public class ExchangeRateResponse {
 	@JsonProperty("forexId")
 	private String forexId;
 	@JsonProperty("others")
-	private Map<String,String> others;
+	private Map<String, String> others;
+
+	@JsonProperty("chargeAmountInAccountCurrency")
+	private Double chargeAmountInAccountCurrency;
+	@JsonProperty("chargeAmount")
+	private Double chargeAmount;
+	@JsonProperty("chargeCurrency")
+	private String chargeCurrency;
+
+	@JsonProperty("vatAmount")
+	private Double vatAmount;
+	@JsonProperty("vatAmountInAccountCurrency")
+	private Double vatAmountInAccountCurrency;
+	@JsonProperty("vatCurrency")
+	private String vatCurrency;
+
 }
