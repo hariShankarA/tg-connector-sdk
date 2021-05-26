@@ -25,10 +25,10 @@ import net.tarabutgateway.bobf.connector.sdk.model.balances.OBBalanceTypeCode;
 import net.tarabutgateway.bobf.connector.sdk.model.beneficiaries.BeneficiariesResponse;
 import net.tarabutgateway.bobf.connector.sdk.model.common.OBCreditDebitCode;
 import net.tarabutgateway.bobf.connector.sdk.model.common.PsuIdentifiers;
+import net.tarabutgateway.bobf.connector.sdk.model.customers.CustomersResponse;
+import net.tarabutgateway.bobf.connector.sdk.model.customers.CustomerResponse;
 import net.tarabutgateway.bobf.connector.sdk.model.directdebits.DirectDebitsResponse;
 import net.tarabutgateway.bobf.connector.sdk.model.offers.OffersResponse;
-import net.tarabutgateway.bobf.connector.sdk.model.parties.PartiesResponse;
-import net.tarabutgateway.bobf.connector.sdk.model.parties.PartyResponse;
 import net.tarabutgateway.bobf.connector.sdk.model.paymentcharges.PaymentChargesRequest;
 import net.tarabutgateway.bobf.connector.sdk.model.paymentcharges.PaymentChargesResponse;
 import net.tarabutgateway.bobf.connector.sdk.model.payments.PaymentsRequest;
@@ -44,7 +44,7 @@ import net.tarabutgateway.bobf.connector.sdk.service.BalanceService;
 import net.tarabutgateway.bobf.connector.sdk.service.BeneficiaryService;
 import net.tarabutgateway.bobf.connector.sdk.service.DirectDebitService;
 import net.tarabutgateway.bobf.connector.sdk.service.OfferService;
-import net.tarabutgateway.bobf.connector.sdk.service.PartyService;
+import net.tarabutgateway.bobf.connector.sdk.service.CustomerService;
 import net.tarabutgateway.bobf.connector.sdk.service.PaymentChargesService;
 import net.tarabutgateway.bobf.connector.sdk.service.PaymentService;
 import net.tarabutgateway.bobf.connector.sdk.service.ProductService;
@@ -92,7 +92,7 @@ public class TGConnectorResource {
 	ProductService productService;
 
 	@Autowired(required = false)
-	PartyService partyService;
+	CustomerService partyService;
 
 	@Autowired(required = false)
 	PaymentChargesService paymentChargesService;
@@ -281,28 +281,19 @@ public class TGConnectorResource {
 		return defResult;
 	}
 
-	@GetMapping("/party")
-	public DeferredResult<PartyResponse> getParty(
+	@GetMapping("/customer")
+	public DeferredResult<CustomerResponse> getParty(
 			@RequestAttribute(name = "X-TG-PsuIdentifier", required = true) PsuIdentifiers psuIdentifierObj) {
-		DeferredResult<PartyResponse> defResult = new DeferredResult<>(DEFAULT_DEFERRED_TIMEOUT);
+		DeferredResult<CustomerResponse> defResult = new DeferredResult<>(DEFAULT_DEFERRED_TIMEOUT);
 		partyService.findCustomer(defResult, psuIdentifierObj);
 		return defResult;
 	}
 
-	@GetMapping("/accounts/{accountId}/party")
-	public DeferredResult<PartyResponse> getAccountParty(
+	@GetMapping("/accounts/{accountId}/customer")
+	public DeferredResult<CustomersResponse> getAccountParties(
 			@RequestAttribute(name = "X-TG-PsuIdentifier", required = true) PsuIdentifiers psuIdentifierObj,
 			@PathVariable(value = "accountId", required = true) String accountId) {
-		DeferredResult<PartyResponse> defResult = new DeferredResult<>(DEFAULT_DEFERRED_TIMEOUT);
-		partyService.findCustomerByAccountId(defResult, psuIdentifierObj, accountId);
-		return defResult;
-	}
-
-	@GetMapping("/accounts/{accountId}/parties")
-	public DeferredResult<PartiesResponse> getAccountParties(
-			@RequestAttribute(name = "X-TG-PsuIdentifier", required = true) PsuIdentifiers psuIdentifierObj,
-			@PathVariable(value = "accountId", required = true) String accountId) {
-		DeferredResult<PartiesResponse> defResult = new DeferredResult<>(DEFAULT_DEFERRED_TIMEOUT);
+		DeferredResult<CustomersResponse> defResult = new DeferredResult<>(DEFAULT_DEFERRED_TIMEOUT);
 		partyService.findCustomersByAccountId(defResult, psuIdentifierObj, accountId);
 		return defResult;
 	}

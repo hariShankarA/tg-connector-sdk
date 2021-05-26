@@ -1,4 +1,4 @@
-package net.tarabutgateway.bobf.connector.sdk.model.parties;
+package net.tarabutgateway.bobf.connector.sdk.model.customers;
 
 import java.util.List;
 

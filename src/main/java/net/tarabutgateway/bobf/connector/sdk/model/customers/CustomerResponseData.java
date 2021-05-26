@@ -1,11 +1,11 @@
-package net.tarabutgateway.bobf.connector.sdk.model.parties;
+package net.tarabutgateway.bobf.connector.sdk.model.customers;
 
 import lombok.Builder;
 import lombok.Data;
 
 @Data
 @Builder
-public class PartyResponseData {
+public class CustomerResponseData {
 
 	private String id;
 	private String number;
