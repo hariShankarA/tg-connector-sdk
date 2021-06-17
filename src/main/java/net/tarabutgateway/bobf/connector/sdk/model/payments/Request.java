@@ -1,7 +1,5 @@
 package net.tarabutgateway.bobf.connector.sdk.model.payments;
 
-import java.util.Map;
-
 import javax.validation.Valid;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -20,6 +18,4 @@ public class Request {
 	@JsonProperty("Risk")
 	private Risk risk;
 
-	@JsonProperty("additionalProp1")
-	private Map<String, Object> additionalProp1;
 }

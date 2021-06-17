@@ -7,9 +7,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
-import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 
 @Data
 @Builder
@@ -17,6 +15,9 @@ import lombok.Setter;
 @NoArgsConstructor
 public class PaymentsRequestData {
 
+	@JsonProperty("ConsentId")
+	private String consentId;
+	
 	@Valid
 	@JsonProperty("Initiation")
 	private Initiation initiation;
