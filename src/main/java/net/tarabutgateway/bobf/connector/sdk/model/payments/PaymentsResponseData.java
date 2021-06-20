@@ -19,6 +19,6 @@ public class PaymentsResponseData {
 	private Date creationDateTime;
 	@JsonProperty("statusUpdateDateTime")
 	private Date statusUpdateDateTime;
-	@JsonProperty("refund")
+	@JsonProperty("Refund")
 	private Refund refund;
 }
