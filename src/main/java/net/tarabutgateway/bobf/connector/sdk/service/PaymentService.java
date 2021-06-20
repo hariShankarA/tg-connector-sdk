@@ -13,4 +13,8 @@ public interface PaymentService {
 	@Async
 	void makePayment(DeferredResult<PaymentsResponse> defResult, PsuIdentifiers psuIdentifierObj,
 			PaymentsRequest paymentsRequest);
+	
+	@Async
+	void getPaymentStatus(DeferredResult<PaymentsResponse> defResult, PsuIdentifiers psuIdentifierObj,
+			String paymentId);
 }

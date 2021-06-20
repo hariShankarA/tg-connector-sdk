@@ -8,13 +8,15 @@ import org.springframework.web.context.request.async.DeferredResult;
 
 import net.tarabutgateway.bobf.connector.sdk.model.accounts.AccountResponse;
 import net.tarabutgateway.bobf.connector.sdk.model.accounts.AccountsResponse;
+import net.tarabutgateway.bobf.connector.sdk.model.accounts.OBAccountNature;
 import net.tarabutgateway.bobf.connector.sdk.model.common.PsuIdentifiers;
 
 @Service
 public interface AccountService {
 
 	@Async
-	void findAccounts(DeferredResult<AccountsResponse> defResult, PsuIdentifiers psuIdentifierObj, List<String> accountIds);
+	void findAccounts(DeferredResult<AccountsResponse> defResult, PsuIdentifiers psuIdentifierObj, List<String> accountIds,
+			OBAccountNature accountNature);
 	@Async
 	void findByAccountId(DeferredResult<AccountResponse> defResult, PsuIdentifiers psuIdentifierObj, String accountId);
 

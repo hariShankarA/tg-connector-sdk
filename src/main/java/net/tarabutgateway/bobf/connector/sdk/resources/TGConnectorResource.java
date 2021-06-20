@@ -20,13 +20,14 @@ import org.springframework.web.context.request.async.DeferredResult;
 
 import net.tarabutgateway.bobf.connector.sdk.model.accounts.AccountResponse;
 import net.tarabutgateway.bobf.connector.sdk.model.accounts.AccountsResponse;
+import net.tarabutgateway.bobf.connector.sdk.model.accounts.OBAccountNature;
 import net.tarabutgateway.bobf.connector.sdk.model.balances.BalancesResponse;
 import net.tarabutgateway.bobf.connector.sdk.model.balances.OBBalanceTypeCode;
 import net.tarabutgateway.bobf.connector.sdk.model.beneficiaries.BeneficiariesResponse;
 import net.tarabutgateway.bobf.connector.sdk.model.common.OBCreditDebitCode;
 import net.tarabutgateway.bobf.connector.sdk.model.common.PsuIdentifiers;
-import net.tarabutgateway.bobf.connector.sdk.model.customers.CustomersResponse;
 import net.tarabutgateway.bobf.connector.sdk.model.customers.CustomerResponse;
+import net.tarabutgateway.bobf.connector.sdk.model.customers.CustomersResponse;
 import net.tarabutgateway.bobf.connector.sdk.model.directdebits.DirectDebitsResponse;
 import net.tarabutgateway.bobf.connector.sdk.model.offers.OffersResponse;
 import net.tarabutgateway.bobf.connector.sdk.model.paymentcharges.PaymentChargesRequest;
@@ -42,9 +43,9 @@ import net.tarabutgateway.bobf.connector.sdk.model.transactions.TransactionsResp
 import net.tarabutgateway.bobf.connector.sdk.service.AccountService;
 import net.tarabutgateway.bobf.connector.sdk.service.BalanceService;
 import net.tarabutgateway.bobf.connector.sdk.service.BeneficiaryService;
+import net.tarabutgateway.bobf.connector.sdk.service.CustomerService;
 import net.tarabutgateway.bobf.connector.sdk.service.DirectDebitService;
 import net.tarabutgateway.bobf.connector.sdk.service.OfferService;
-import net.tarabutgateway.bobf.connector.sdk.service.CustomerService;
 import net.tarabutgateway.bobf.connector.sdk.service.PaymentChargesService;
 import net.tarabutgateway.bobf.connector.sdk.service.PaymentService;
 import net.tarabutgateway.bobf.connector.sdk.service.ProductService;
@@ -100,9 +101,10 @@ public class TGConnectorResource {
 	@GetMapping("/accounts")
 	public DeferredResult<AccountsResponse> getAccounts(
 			@RequestAttribute(name = "X-TG-PsuIdentifier", required = false) PsuIdentifiers psuIdentifier,
-			@RequestParam(required = false, name = "accountIds", defaultValue = "") List<String> accountIds) {
+			@RequestParam(required = false, name = "accountIds", defaultValue = "") List<String> accountIds,
+			@RequestParam(required = false, name = "nature", defaultValue = "") OBAccountNature accountNature) {
 		DeferredResult<AccountsResponse> defResult = new DeferredResult<>(DEFAULT_DEFERRED_TIMEOUT);
-		accountService.findAccounts(defResult, psuIdentifier, accountIds);
+		accountService.findAccounts(defResult, psuIdentifier, accountIds, accountNature);
 		return defResult;
 	}
 
@@ -262,6 +264,15 @@ public class TGConnectorResource {
 			@Valid @RequestBody PaymentsRequest paymentsRequest) {
 		DeferredResult<PaymentsResponse> defResult = new DeferredResult<>(DEFAULT_DEFERRED_TIMEOUT);
 		paymentService.makePayment(defResult, psuIdentifierObj, paymentsRequest);
+		return defResult;
+	}
+	
+	@GetMapping("/payments/{paymentId}")
+	public DeferredResult<PaymentsResponse> getPaymentStatus(
+			@RequestAttribute(name = "X-TG-PsuIdentifier", required = false) PsuIdentifiers psuIdentifierObj,
+			@PathVariable(value = "paymentId", required = true) String paymentId) {
+		DeferredResult<PaymentsResponse> defResult = new DeferredResult<>(DEFAULT_DEFERRED_TIMEOUT);
+		paymentService.getPaymentStatus(defResult, psuIdentifierObj, paymentId);
 		return defResult;
 	}
 
