@@ -19,6 +19,12 @@ public class PaymentsResponseData {
 	private Date creationDateTime;
 	@JsonProperty("statusUpdateDateTime")
 	private Date statusUpdateDateTime;
+<<<<<<< HEAD
 	@JsonProperty("refundAccount")
 	private RefundAccount refundAccount;
 }
+=======
+	@JsonProperty("Refund")
+	private Refund refund;
+}
+>>>>>>> fda3cc24e87b9852def2397be1ace61c6b4eb195
