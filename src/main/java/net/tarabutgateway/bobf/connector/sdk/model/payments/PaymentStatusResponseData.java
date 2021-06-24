@@ -9,7 +9,7 @@ import lombok.Data;
 
 @Data
 @Builder
-public class PaymentsResponseData {
+public class PaymentStatusResponseData {
 
 	@JsonProperty("id")
 	private String id;
@@ -19,6 +19,5 @@ public class PaymentsResponseData {
 	private Date creationDateTime;
 	@JsonProperty("statusUpdateDateTime")
 	private Date statusUpdateDateTime;
-	@JsonProperty("refundAccount")
-	private RefundAccount refundAccount;
+
 }
