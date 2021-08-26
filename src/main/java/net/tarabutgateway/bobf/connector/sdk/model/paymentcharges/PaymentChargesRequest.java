@@ -26,5 +26,7 @@ public class PaymentChargesRequest {
 	private OBLocalInstrumentCode localInstrument;
 	@JsonProperty("paymentType")
 	private OBPaymentType paymentType;
+	@JsonProperty("currencyOfTransfer")
+	private String currencyOfTransfer;
 
 }
