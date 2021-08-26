@@ -11,6 +11,8 @@ public class CustomerResponseData {
 	private String number;
 	private String customerName;
 	private String customerType;
+	private OBPartyDetailAccountRole accountRole;
+	private String legalStructure;
 	private Contact contact;
 
 }
