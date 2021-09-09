@@ -18,4 +18,6 @@ public class BeneficiariesData {
 
 	private Servicer servicer;
 
+	private String beneficiaryId;
+
 }
