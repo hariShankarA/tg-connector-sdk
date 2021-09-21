@@ -21,4 +21,7 @@ public class PaymentsRequestData {
 	@Valid
 	@JsonProperty("Initiation")
 	private Initiation initiation;
+	
+	@JsonProperty("Creditor")
+	private Creditor creditor;
 }
