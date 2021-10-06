@@ -38,6 +38,9 @@ public class Initiation {
 	@JsonProperty("RemittanceInformation")
 	private RemittanceInformation remittanceInformation;
 	
+	@JsonProperty("ChargeBearer")
+	private String ChargeBearer;
+	
 	@Future
 	@JsonProperty("RequestedExecutionDateTime")
 	private Date requestedExecutionDateTime;
