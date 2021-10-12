@@ -271,9 +271,10 @@ public class TGConnectorResource {
 	@GetMapping("/payments/{paymentId}")
 	public DeferredResult<PaymentStatusResponse> getPaymentStatus(
 			@RequestAttribute(name = "X-TG-PsuIdentifier", required = false) PsuIdentifiers psuIdentifierObj,
+			@RequestAttribute(name = "o3-api-uri", required = false) String apiUri,
 			@PathVariable(value = "paymentId", required = true) String paymentId) {
 		DeferredResult<PaymentStatusResponse> defResult = new DeferredResult<>(DEFAULT_DEFERRED_TIMEOUT);
-		paymentService.getPaymentStatus(defResult, psuIdentifierObj, paymentId);
+		paymentService.getPaymentStatus(defResult, psuIdentifierObj, paymentId, apiUri);
 		return defResult;
 	}
 

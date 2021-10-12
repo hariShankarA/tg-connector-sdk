@@ -79,6 +79,7 @@ public class TGAuthInterceptor extends HandlerInterceptorAdapter {
 		}
 		
 		request.setAttribute("X-TG-PsuIdentifier", psuIdentifier);
+		request.setAttribute(API_URI, request.getHeader(API_URI));
 		return true;
 	}
 	
