@@ -5,10 +5,10 @@ import com.fasterxml.jackson.annotation.JsonValue;
 public enum OBPaymentType {
 
 	DOMESTIC_PAYMENT("domestic-payment"), 
-	FUTURE_DATED_PAYMENT("future-dated-payment"),
+	FUTURE_DATED_PAYMENT("domestic-scheduled-payment"),
 	STANDING_ORDER("standing-order"), 
 	INTERNATIONAL_PAYMENT("international-payment"),
-	INTERNATIONAL_FUTURE_DATED_PAYMENT("international-future-dated-payment"),
+	INTERNATIONAL_FUTURE_DATED_PAYMENT("international-scheduled-payment"),
 	INTERNATIONAL_STANDING_ORDER("international-standing-order");
 
 	private final String value;
