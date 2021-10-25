@@ -2,8 +2,6 @@ package net.tarabutgateway.bobf.connector.sdk.model.payments;
 
 import java.util.Date;
 
-import javax.validation.constraints.Future;
-
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import lombok.Builder;
@@ -41,7 +39,6 @@ public class Initiation {
 	@JsonProperty("ChargeBearer")
 	private String ChargeBearer;
 	
-	@Future
 	@JsonProperty("RequestedExecutionDateTime")
 	private Date requestedExecutionDateTime;
 
