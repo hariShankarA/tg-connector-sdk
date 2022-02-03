@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.context.request.async.DeferredResult;
 
 import net.tarabutgateway.bobf.connector.sdk.model.common.PsuIdentifiers;
+import net.tarabutgateway.bobf.connector.sdk.model.payments.PaymentDetailsResponse;
 import net.tarabutgateway.bobf.connector.sdk.model.payments.PaymentStatusResponse;
 import net.tarabutgateway.bobf.connector.sdk.model.payments.PaymentsRequest;
 import net.tarabutgateway.bobf.connector.sdk.model.payments.PaymentsResponse;
@@ -17,5 +18,9 @@ public interface PaymentService {
 
 	@Async
 	void getPaymentStatus(DeferredResult<PaymentStatusResponse> defResult, PsuIdentifiers psuIdentifierObj,
+			String paymentId, String apiUri);
+	
+	@Async
+	void getPaymentDetails(DeferredResult<PaymentDetailsResponse> defResult, PsuIdentifiers psuIdentifierObj,
 			String paymentId, String apiUri);
 }

@@ -32,6 +32,7 @@ import net.tarabutgateway.bobf.connector.sdk.model.directdebits.DirectDebitsResp
 import net.tarabutgateway.bobf.connector.sdk.model.offers.OffersResponse;
 import net.tarabutgateway.bobf.connector.sdk.model.paymentcharges.PaymentChargesRequest;
 import net.tarabutgateway.bobf.connector.sdk.model.paymentcharges.PaymentChargesResponse;
+import net.tarabutgateway.bobf.connector.sdk.model.payments.PaymentDetailsResponse;
 import net.tarabutgateway.bobf.connector.sdk.model.payments.PaymentStatusResponse;
 import net.tarabutgateway.bobf.connector.sdk.model.payments.PaymentsRequest;
 import net.tarabutgateway.bobf.connector.sdk.model.payments.PaymentsResponse;
@@ -275,6 +276,16 @@ public class TGConnectorResource {
 			@PathVariable(value = "paymentId", required = true) String paymentId) {
 		DeferredResult<PaymentStatusResponse> defResult = new DeferredResult<>(DEFAULT_DEFERRED_TIMEOUT);
 		paymentService.getPaymentStatus(defResult, psuIdentifierObj, paymentId, apiUri);
+		return defResult;
+	}
+	
+	@GetMapping("/payments/{paymentId}/payment-details")
+	public DeferredResult<PaymentDetailsResponse> getPaymentDetails(
+			@RequestAttribute(name = "X-TG-PsuIdentifier", required = false) PsuIdentifiers psuIdentifierObj,
+			@RequestAttribute(name = "o3-api-uri", required = false) String apiUri,
+			@PathVariable(value = "paymentId", required = true) String paymentId) {
+		DeferredResult<PaymentDetailsResponse> defResult = new DeferredResult<>(DEFAULT_DEFERRED_TIMEOUT);
+		paymentService.getPaymentDetails(defResult, psuIdentifierObj, paymentId, apiUri);
 		return defResult;
 	}
 

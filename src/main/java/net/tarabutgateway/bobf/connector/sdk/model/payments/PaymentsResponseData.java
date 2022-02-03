@@ -13,6 +13,8 @@ public class PaymentsResponseData {
 
 	@JsonProperty("id")
 	private String id;
+	@JsonProperty("DomesticVRPId")
+	private String DomesticVRPId;
 	@JsonProperty("status")
 	private OBPaymentStatusCode status;
 	@JsonProperty("creationDateTime")

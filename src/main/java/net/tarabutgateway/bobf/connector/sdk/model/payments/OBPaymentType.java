@@ -9,7 +9,8 @@ public enum OBPaymentType {
 	STANDING_ORDER("standing-order"), 
 	INTERNATIONAL_PAYMENT("international-payment"),
 	INTERNATIONAL_FUTURE_DATED_PAYMENT("international-future-dated-payments"),
-	INTERNATIONAL_STANDING_ORDER("international-standing-order");
+	INTERNATIONAL_STANDING_ORDER("international-standing-order"),
+	DOMESTIC_VRP_PAYMENT("domestic-vrp");
 
 	private final String value;
 
