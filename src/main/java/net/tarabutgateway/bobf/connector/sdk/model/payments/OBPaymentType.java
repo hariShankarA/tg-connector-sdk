@@ -6,7 +6,7 @@ public enum OBPaymentType {
 
 	DOMESTIC_PAYMENT("domestic-payment"), 
 	FUTURE_DATED_PAYMENT("domestic-future-dated-payments"),
-	STANDING_ORDER("standing-order"), 
+	DOMESTIC_STANDING_ORDER("domestic-standing-order"), 
 	INTERNATIONAL_PAYMENT("international-payment"),
 	INTERNATIONAL_FUTURE_DATED_PAYMENT("international-future-dated-payments"),
 	INTERNATIONAL_STANDING_ORDER("international-standing-order"),

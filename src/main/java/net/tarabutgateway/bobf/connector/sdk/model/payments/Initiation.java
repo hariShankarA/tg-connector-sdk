@@ -41,5 +41,8 @@ public class Initiation {
 	
 	@JsonProperty("RequestedExecutionDateTime")
 	private Date requestedExecutionDateTime;
+	
+	@JsonProperty("ExchangeRateInformation")
+	private ExchangeRateInformation exchangeRateInformation;
 
 }
