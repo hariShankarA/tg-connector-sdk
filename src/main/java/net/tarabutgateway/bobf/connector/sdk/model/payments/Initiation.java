@@ -44,5 +44,18 @@ public class Initiation {
 	
 	@JsonProperty("ExchangeRateInformation")
 	private ExchangeRateInformation exchangeRateInformation;
+	
+	@JsonProperty("Frequency")
+	private String frequency;
+	
+	@JsonProperty("FirstPaymentDateTime")
+	private Date firstPaymentDateTime;
+	
+	@JsonProperty("FinalPaymentDateTime")
+	private Date finalPaymentDateTime;
+	
+	@JsonProperty("FirstPaymentAmount")
+	private Amount firstPaymentAmount;
+	
 
 }
