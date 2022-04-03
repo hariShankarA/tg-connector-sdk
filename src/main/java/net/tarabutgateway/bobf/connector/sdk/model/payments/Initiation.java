@@ -7,6 +7,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Builder;
 import lombok.Data;
 import net.tarabutgateway.bobf.connector.sdk.model.common.CreditorDebtorAccount;
+import net.tarabutgateway.bobf.connector.sdk.model.common.CreditorDebtorAgent;
 
 @Data
 @Builder
@@ -56,6 +57,12 @@ public class Initiation {
 	
 	@JsonProperty("FirstPaymentAmount")
 	private Amount firstPaymentAmount;
+	
+	@JsonProperty("Purpose")
+	private String purpose;
+	
+	@JsonProperty("CreditorAgent")
+	private CreditorDebtorAgent creditorAgent;
 	
 
 }
