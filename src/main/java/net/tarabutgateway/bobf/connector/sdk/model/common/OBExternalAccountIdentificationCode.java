@@ -4,7 +4,7 @@ import com.fasterxml.jackson.annotation.JsonValue;
 
 public enum OBExternalAccountIdentificationCode {
 
-	IBAN("BH.OBF.IBAN"), PAN("BH.OBF.PAN");
+	IBAN("UK.OBIE.IBAN"), PAN("UK.OBIE.PAN");
 
 	private final String value;
 

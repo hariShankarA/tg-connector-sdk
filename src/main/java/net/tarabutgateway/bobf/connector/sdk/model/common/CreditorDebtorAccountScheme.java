@@ -4,7 +4,7 @@ import com.fasterxml.jackson.annotation.JsonValue;
 
 public enum CreditorDebtorAccountScheme {
 
-	BH_BOBF_IBAN("BH.OBF.IBAN"), BH_BOBF_BBAN("BH.OBF.BBAN"), BH_BOBF_PAN("BH.OBF.PAN");
+	UK_OBIE_SORTCODEACCOUNTNUMBER("UK.OBIE.SortCodeAccountNumber"), UK_OBIE_IBAN("UK.OBIE.IBAN"), UK_OBIE_PAN("UK.OBIE.PAN");
 
 	private final String value;
 

@@ -4,9 +4,9 @@ import com.fasterxml.jackson.annotation.JsonValue;
 
 public enum OBDirectDebitFrequency {
 
-	BH_OBF_ANNUAL("BH.OBF.Annual"), BH_OBF_DAILY("BH.OBF.Daily"), BH_OBF_FORTNIGHTLY("BH.OBF.Fortnightly"),
-	BH_OBF_HALF_YEARLY("BH.OBF.HalfYearly"), BH_OBF_MONTHLY("BH.OBF.Monthly"),
-	BH_OBF_NOT_KNOWN("BH.OBF.NotKnown"), BH_OBF_QAURTERLY("BH.OBF.Quarterly");
+	UK_OBIE_ANNUAL("UK.OBIE.Annual"), UK_OBIE_DAILY("UK.OBIE.Daily"), UK_OBIE_FORTNIGHTLY("UK.OBIE.Fortnightly"),
+	UK_OBIE_HALF_YEARLY("UK.OBIE.HalfYearly"), UK_OBIE_MONTHLY("UK.OBIE.Monthly"),
+	UK_OBIE_NOT_KNOWN("UK.OBIE.NotKnown"), UK_OBIE_QAURTERLY("UK.OBIE.Quarterly");
 
 	private final String value;
 

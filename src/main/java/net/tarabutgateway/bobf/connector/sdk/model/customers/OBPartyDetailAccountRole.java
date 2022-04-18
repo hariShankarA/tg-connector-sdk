@@ -4,11 +4,11 @@ import com.fasterxml.jackson.annotation.JsonValue;
 
 public enum OBPartyDetailAccountRole {
 
-	BH_OBF_ADMINISTRATOR("BH.OBF.Administrator"), BH_OBF_BENEFICIARY("BH.OBF.Beneficiary"),
-	BH_OBF_CUSTODIANFORMINOR("BH.OBF.CustodianForMinor"), BH_OBF_GRANTER("BH.OBF.Granter"),
-	BH_OBF_LEGALGUARDIAN("BH.OBF.LegalGuardian"), BH_OBF_OTHERPARTY("BH.OBF.OtherParty"),
-	BH_OBF_POWEROFATTORNEY("BH.OBF.PowerOfAttorney"), BH_OBF_PRINCIPAL("BH.OBF.Principal"),
-	BH_OBF_PROTECTOR("BH.OBF.Protector"), BH_OBF_REGISTEREDSHAREDNAME("BH.OBF.RegisteredSharedName");
+	UK_OBIE_ADMINISTRATOR("UK.OBIE.Administrator"), UK_OBIE_BENEFICIARY("UK.OBIE.Beneficiary"),
+	UK_OBIE_CUSTODIANFORMINOR("UK.OBIE.CustodianForMinor"), UK_OBIE_GRANTER("UK.OBIE.Granter"),
+	UK_OBIE_LEGALGUARDIAN("UK.OBIE.LegalGuardian"), UK_OBIE_OTHERPARTY("UK.OBIE.OtherParty"),
+	UK_OBIE_POWEROFATTORNEY("UK.OBIE.PowerOfAttorney"), UK_OBIE_PRINCIPAL("UK.OBIE.Principal"),
+	UK_OBIE_PROTECTOR("UK.OBIE.Protector"), UK_OBIE_REGISTEREDSHAREDNAME("UK.OBIE.RegisteredSharedName");
 
 	private final String value;
 
