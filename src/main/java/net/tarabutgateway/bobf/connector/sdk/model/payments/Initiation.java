@@ -61,6 +61,9 @@ public class Initiation {
 	@JsonProperty("Purpose")
 	private String purpose;
 	
+	@JsonProperty("NumberOfPayments")
+	private String numberOfPayments;
+	
 	@JsonProperty("CreditorAgent")
 	private CreditorDebtorAgent creditorAgent;
 	
