@@ -162,10 +162,12 @@ public class TGConnectorResource {
 			@RequestParam(required = false, name = "status", defaultValue = "") OBTransactionStatus status,
 			@RequestParam(required = false, name = "creditDebitIndicator", defaultValue = "") OBCreditDebitCode creditDebitIndicator,
 			@RequestParam(required = false, name = "fromBookingDateTime") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) Date fromBookingDateTime,
-			@RequestParam(required = false, name = "toBookingDateTime") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) Date toBookingDateTime) {
+			@RequestParam(required = false, name = "toBookingDateTime") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) Date toBookingDateTime,
+			@RequestParam(required = false, name = "o3-caller-client-id") String clientId,
+			@RequestParam(required = false, name = "o3-consent-id") String consentId) {
 		DeferredResult<TransactionsResponse> defResult = new DeferredResult<>(DEFAULT_DEFERRED_TIMEOUT);
 		transactionService.findTransactionsByAccountId(defResult, psuIdentifier, accountId, page, status,
-				creditDebitIndicator, fromBookingDateTime, toBookingDateTime);
+				creditDebitIndicator, fromBookingDateTime, toBookingDateTime, clientId, consentId);
 		return defResult;
 	}
 
@@ -268,7 +270,7 @@ public class TGConnectorResource {
 		paymentService.makePayment(defResult, psuIdentifierObj, paymentsRequest);
 		return defResult;
 	}
-	
+
 	@GetMapping("/payments/{paymentId}")
 	public DeferredResult<PaymentStatusResponse> getPaymentStatus(
 			@RequestAttribute(name = "X-TG-PsuIdentifier", required = false) PsuIdentifiers psuIdentifierObj,
@@ -278,7 +280,7 @@ public class TGConnectorResource {
 		paymentService.getPaymentStatus(defResult, psuIdentifierObj, paymentId, apiUri);
 		return defResult;
 	}
-	
+
 	@GetMapping("/payments/{paymentId}/payment-details")
 	public DeferredResult<PaymentDetailsResponse> getPaymentDetails(
 			@RequestAttribute(name = "X-TG-PsuIdentifier", required = false) PsuIdentifiers psuIdentifierObj,

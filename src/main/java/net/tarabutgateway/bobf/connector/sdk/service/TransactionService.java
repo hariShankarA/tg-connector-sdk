@@ -23,5 +23,5 @@ public interface TransactionService {
 	@Async
 	void findTransactionsByAccountId(DeferredResult<TransactionsResponse> defResult, PsuIdentifiers psuIdentifier, String accountId, Integer page,
 			OBTransactionStatus status, OBCreditDebitCode creditDebitIndicator, Date fromBookingDateTime,
-			Date toBookingDateTime);
+			Date toBookingDateTime, String clientId, String consentId);
 }
