@@ -163,8 +163,8 @@ public class TGConnectorResource {
 			@RequestParam(required = false, name = "creditDebitIndicator", defaultValue = "") OBCreditDebitCode creditDebitIndicator,
 			@RequestParam(required = false, name = "fromBookingDateTime") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) Date fromBookingDateTime,
 			@RequestParam(required = false, name = "toBookingDateTime") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) Date toBookingDateTime,
-			@RequestParam(required = false, name = "o3-caller-client-id") String clientId,
-			@RequestParam(required = false, name = "o3-consent-id") String consentId) {
+			@RequestAttribute(required = false, name = "o3-caller-client-id") String clientId,
+			@RequestAttribute(required = false, name = "o3-consent-id") String consentId) {
 		DeferredResult<TransactionsResponse> defResult = new DeferredResult<>(DEFAULT_DEFERRED_TIMEOUT);
 		transactionService.findTransactionsByAccountId(defResult, psuIdentifier, accountId, page, status,
 				creditDebitIndicator, fromBookingDateTime, toBookingDateTime, clientId, consentId);
