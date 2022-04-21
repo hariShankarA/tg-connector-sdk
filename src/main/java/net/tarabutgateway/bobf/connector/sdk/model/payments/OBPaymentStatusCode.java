@@ -6,7 +6,8 @@ public enum OBPaymentStatusCode {
 
 	PENDING("Pending"), REJECTED("Rejected"), ACCEPTED_SETTLEMENT_IN_PROCESS("AcceptedSettlementInProcess"),
 	ACCEPTED_SETTLEMENT_COMPLETED("AcceptedSettlementCompleted"), ACCEPTED_WITHOUT_POSTING("AcceptedWithoutPosting"),
-	ACCEPTED_CREDIT_SETTLEMENT_COMPLETED("AcceptedCreditSettlementCompleted");
+	ACCEPTED_CREDIT_SETTLEMENT_COMPLETED("AcceptedCreditSettlementCompleted"), INITIATION_PENDING("InitiationPending"),
+	INITIATION_FAILED("InitiationFailed"), INITIATION_COMPLETED("InitiationCompleted"), CANCELLED("Cancelled");
 
 	private final String value;
 
